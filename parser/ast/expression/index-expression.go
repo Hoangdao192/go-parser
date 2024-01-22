@@ -1,0 +1,19 @@
+package expression
+
+// An IndexExpression node represents an expression followed by an index.
+type IndexExpression struct {
+	Expression   Expression `json:"expression"`   // expression
+	LeftBracket  int        `json:"leftBracket"`  // position of "["
+	Index        Expression `json:"index"`        // index expression
+	RightBracket int        `json:"rightBracket"` // position of "]"
+}
+
+func (x *IndexExpression) Position() int {
+	return x.Expression.Position()
+}
+
+func (x *IndexExpression) End() int {
+	return x.RightBracket + 1
+}
+
+func (*IndexExpression) ExpressionNode() {}

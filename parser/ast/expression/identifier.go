@@ -1,4 +1,6 @@
-package ast
+package expression
+
+import "joern-go/parser/ast"
 
 // An Identifier node represents an identifier.
 type Identifier struct {
@@ -7,7 +9,7 @@ type Identifier struct {
 	// identifier name
 	Name string `json:"Name"`
 	// denoted object; or nil
-	Object *Object `json:"Object"`
+	Object *ast.Object `json:"Object"`
 }
 
 func (x *Identifier) Position() int {
@@ -17,3 +19,5 @@ func (x *Identifier) Position() int {
 func (x *Identifier) End() int {
 	return x.NamePos + len(x.Name)
 }
+
+func (*Identifier) ExpressionNode() {}

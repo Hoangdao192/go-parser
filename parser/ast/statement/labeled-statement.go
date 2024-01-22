@@ -1,13 +1,13 @@
 package statement
 
 import (
-	"joern-go/parser/ast"
+	"joern-go/parser/ast/expression"
 )
 
 // A LabeledStatement node represents a labeled statement.
 type LabeledStatement struct {
-	Statement Statement       `json:"statement"`
-	Label     *ast.Identifier `json:"label"`
+	Statement Statement              `json:"statement"`
+	Label     *expression.Identifier `json:"label"`
 	// position of ":"
 	Colon int `json:"colon"`
 }

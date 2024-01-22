@@ -1,15 +1,15 @@
 package statement
 
 import (
-	"joern-go/parser/ast"
+	"joern-go/parser/ast/expression"
 )
 
 // A BranchStatement node represents a break, continue, goto,
 // or fallthrough statement.
 type BranchStatement struct {
-	TokenPosition int             `json:"tokenPosition"` // position of Token
-	Token         int             `json:"token"`         // keyword token (BREAK, CONTINUE, GOTO, FALLTHROUGH)
-	Label         *ast.Identifier `json:"label"`         // label name; or nil
+	TokenPosition int                    `json:"tokenPosition"` // position of Token
+	Token         int                    `json:"token"`         // keyword token (BREAK, CONTINUE, GOTO, FALLTHROUGH)
+	Label         *expression.Identifier `json:"label"`         // label name; or nil
 }
 
 func (s *BranchStatement) Position() int {

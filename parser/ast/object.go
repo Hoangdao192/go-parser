@@ -9,13 +9,10 @@ package ast
 //	Pkg     *Scope            package scope
 //	Con     int               iota for the respective declaration
 type Object struct {
-	Kind int `json:"kind"`
-	// declared name
-	Name string `json:"name"`
-	// corresponding Field, XxxSpec, FuncDecl, LabeledStmt, AssignStmt, Scope; or nil
-	Decl any `json:"decl"`
-	// object-specific data; or nil
-	Data any `json:"data"`
-	// placeholder for type information; may be nil
-	Type any `json:"type"`
+	Kind int    `json:"kind"`
+	Name string `json:"name"` // declared name
+	// corresponding Field, XxxSpecification, FunctionDeclaration, LabeledStatement, AssignStatement, Scope; or nil
+	Declaration any `json:"declaration"`
+	Data        any `json:"data"` // object-specific data; or nil
+	Type        any `json:"type"` // placeholder for type information; may be nil
 }
