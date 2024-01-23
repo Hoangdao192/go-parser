@@ -10,7 +10,7 @@ type ChanelType struct {
 	Value     ast.Expression `json:"value"`     // value type
 }
 
-func (x *ChanelType) Position() int {
+func (x *ChanelType) Start() int {
 	return x.Begin
 }
 

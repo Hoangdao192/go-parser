@@ -9,8 +9,8 @@ type IndexListExpression struct {
 	RightBracket int          `json:"rightBracket"` // position of "]"
 }
 
-func (x *IndexListExpression) Position() int {
-	return x.Expression.Position()
+func (x *IndexListExpression) Start() int {
+	return x.Expression.Start()
 }
 
 func (x *IndexListExpression) End() int {

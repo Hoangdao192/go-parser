@@ -9,11 +9,11 @@ type FunctionType struct {
 	Results    *ast.FieldList // (outgoing) results; or nil
 }
 
-func (x *FunctionType) Position() int {
+func (x *FunctionType) Start() int {
 	if x.Function == 0 || x.Params == nil { // see issue 3870
 		return x.Function
 	}
-	return x.Params.Position() // interface method declarations have no "func" keyword
+	return x.Params.Start() // interface method declarations have no "func" keyword
 }
 
 func (x *FunctionType) End() int {

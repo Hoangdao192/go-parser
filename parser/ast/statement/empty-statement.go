@@ -10,7 +10,7 @@ type EmptyStatement struct {
 	Implicit bool `json:"implicit"`
 }
 
-func (s *EmptyStatement) Position() int {
+func (s *EmptyStatement) Start() int {
 	return s.Semicolon
 }
 

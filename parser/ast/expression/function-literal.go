@@ -11,8 +11,8 @@ type FunctionLiteral struct {
 	Body *statement.BlockStatement `json:"body"` // function body
 }
 
-func (x *FunctionLiteral) Position() int {
-	return x.Type.Position()
+func (x *FunctionLiteral) Start() int {
+	return x.Type.Start()
 }
 
 func (x *FunctionLiteral) End() int {

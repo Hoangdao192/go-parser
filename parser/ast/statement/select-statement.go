@@ -6,7 +6,7 @@ type SelectStatement struct {
 	Body   *BlockStatement `json:"body"`   // CommClauses only
 }
 
-func (s *SelectStatement) Position() int {
+func (s *SelectStatement) Start() int {
 	return s.Select
 }
 

@@ -10,7 +10,7 @@ type SwitchStatement struct {
 	Body           *BlockStatement       `json:"body"`           // CaseClauses only
 }
 
-func (s *SwitchStatement) Position() int {
+func (s *SwitchStatement) Start() int {
 	return s.Switch
 }
 

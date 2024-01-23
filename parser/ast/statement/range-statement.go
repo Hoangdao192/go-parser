@@ -16,7 +16,7 @@ type RangeStatement struct {
 	Body       *BlockStatement       `json:"body"`
 }
 
-func (s *RangeStatement) Position() int {
+func (s *RangeStatement) Start() int {
 	return s.For
 }
 

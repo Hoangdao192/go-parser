@@ -12,8 +12,8 @@ type SendStatement struct {
 	Value expression.Expression `json:"Value"`
 }
 
-func (s *SendStatement) Position() int {
-	return s.Chanel.Position()
+func (s *SendStatement) Start() int {
+	return s.Chanel.Start()
 }
 
 func (s *SendStatement) End() int {

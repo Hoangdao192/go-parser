@@ -11,8 +11,8 @@ type IncrementDecrementStatement struct {
 	Token         int                   `json:"Token"`         // INC or DEC
 }
 
-func (s *IncrementDecrementStatement) Position() int {
-	return s.Expression.Position()
+func (s *IncrementDecrementStatement) Start() int {
+	return s.Expression.Start()
 }
 
 func (s *IncrementDecrementStatement) End() int {

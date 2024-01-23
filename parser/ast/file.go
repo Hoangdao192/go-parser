@@ -40,7 +40,7 @@ type File struct {
 
 // Position returns the position of the package declaration.
 // (Use FileStart for the start of the entire file.)
-func (f *File) Position() int {
+func (f *File) Start() int {
 	return f.Package
 }
 

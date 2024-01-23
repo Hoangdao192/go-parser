@@ -13,8 +13,8 @@ func (x *CallExpression) End() int {
 	return x.Rparen + 1
 }
 
-func (x *CallExpression) Position() int {
-	return x.Function.Position()
+func (x *CallExpression) Start() int {
+	return x.Function.Start()
 }
 
 func (*CallExpression) ExpressionNode() {}

@@ -12,7 +12,7 @@ type Identifier struct {
 	Object *ast.Object `json:"Object"`
 }
 
-func (x *Identifier) Position() int {
+func (x *Identifier) Start() int {
 	return x.NamePos
 }
 

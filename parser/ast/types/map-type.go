@@ -9,7 +9,7 @@ type MapType struct {
 	Value ast.Expression `json:"value"`
 }
 
-func (x *MapType) Position() int {
+func (x *MapType) Start() int {
 	return x.Map
 }
 

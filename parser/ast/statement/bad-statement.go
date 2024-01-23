@@ -8,7 +8,7 @@ type BadStatement struct {
 	To   int `json:"to"` // position range of bad statement
 }
 
-func (s *BadStatement) Position() int {
+func (s *BadStatement) Start() int {
 	return s.From
 }
 

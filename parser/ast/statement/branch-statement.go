@@ -12,7 +12,7 @@ type BranchStatement struct {
 	Label         *expression.Identifier `json:"label"`         // label name; or nil
 }
 
-func (s *BranchStatement) Position() int {
+func (s *BranchStatement) Start() int {
 	return s.TokenPosition
 }
 

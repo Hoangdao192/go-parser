@@ -9,7 +9,7 @@ type StructType struct {
 	Incomplete bool           `json:"incomplete"` // true if (source) fields are missing in the Fields list
 }
 
-func (x *StructType) Position() int {
+func (x *StructType) Start() int {
 	return x.Struct
 }
 

@@ -17,9 +17,9 @@ type Field struct {
 	Comment *CommentGroup            `json:"comment"` // line comments; or nil
 }
 
-func (f *Field) Position() int {
+func (f *Field) Start() int {
 	if len(f.Names) > 0 {
-		return f.Names[0].Position()
+		return f.Names[0].Start()
 	}
 	if f.Type != nil {
 		return f.Type.Position()
@@ -40,14 +40,14 @@ func (f *Field) End() int {
 	return 0
 }
 
-func (f *FieldList) Position() int {
+func (f *FieldList) Start() int {
 	if f.Opening != 0 {
 		return f.Opening
 	}
 	// the list should not be empty in this case;
 	// be conservative and guard against bad ASTs
 	if len(f.List) > 0 {
-		return f.List[0].Position()
+		return f.List[0].Start()
 	}
 	return 0
 }

@@ -12,7 +12,7 @@ type CaseClause struct {
 	Body  []Statement             `json:"body"`  // statement list; or nil
 }
 
-func (s *CaseClause) Position() int {
+func (s *CaseClause) Start() int {
 	return s.Case
 }
 

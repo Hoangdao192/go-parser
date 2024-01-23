@@ -24,7 +24,7 @@ type GenericDeclaration struct {
 	Rparen         int                           `json:"rparen"` // position of ')', if any
 }
 
-func (d *GenericDeclaration) Position() int {
+func (d *GenericDeclaration) Start() int {
 	return d.TokenPosition
 }
 

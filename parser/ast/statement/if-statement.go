@@ -13,7 +13,7 @@ type IfStatement struct {
 	Else           Statement             `json:"else"` // else branch; or nil
 }
 
-func (s *IfStatement) Position() int {
+func (s *IfStatement) Start() int {
 	return s.If
 }
 

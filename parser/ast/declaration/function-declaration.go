@@ -16,8 +16,8 @@ type FunctionDeclaration struct {
 	Body     *statement.BlockStatement `json:"body"`     // function body; or nil for external (non-Go) function
 }
 
-func (d *FunctionDeclaration) Position() int {
-	return d.Type.Position()
+func (d *FunctionDeclaration) Start() int {
+	return d.Type.Start()
 }
 
 func (d *FunctionDeclaration) End() int {

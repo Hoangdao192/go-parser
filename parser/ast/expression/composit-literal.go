@@ -9,9 +9,9 @@ type CompositeLiteral struct {
 	Incomplete bool         `json:"incomplete"` // true if (source) expressions are missing in the Elements list
 }
 
-func (x *CompositeLiteral) Position() int {
+func (x *CompositeLiteral) Start() int {
 	if x.Type != nil {
-		return x.Type.Position()
+		return x.Type.Start()
 	}
 	return x.Lbrace
 }

@@ -10,8 +10,8 @@ type DeclarationStatement struct {
 	Declaration declaration.Declaration `json:"declaration"`
 }
 
-func (s *DeclarationStatement) Position() int {
-	return s.Declaration.Position()
+func (s *DeclarationStatement) Start() int {
+	return s.Declaration.Start()
 }
 
 func (s *DeclarationStatement) End() int {

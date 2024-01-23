@@ -11,8 +11,8 @@ type SliceExpression struct {
 	RightBracket int        `json:"rightBracket"` // position of "]"
 }
 
-func (x *SliceExpression) Position() int {
-	return x.Expression.Position()
+func (x *SliceExpression) Start() int {
+	return x.Expression.Start()
 }
 
 func (x *SliceExpression) End() int {

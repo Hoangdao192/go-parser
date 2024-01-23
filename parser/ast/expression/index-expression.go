@@ -8,8 +8,8 @@ type IndexExpression struct {
 	RightBracket int        `json:"rightBracket"` // position of "]"
 }
 
-func (x *IndexExpression) Position() int {
-	return x.Expression.Position()
+func (x *IndexExpression) Start() int {
+	return x.Expression.Start()
 }
 
 func (x *IndexExpression) End() int {

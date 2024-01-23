@@ -9,7 +9,7 @@ type InterfaceType struct {
 	Incomplete bool           `json:"incomplete"` // true if (source) methods or types are missing in the Methods list
 }
 
-func (x *InterfaceType) Position() int {
+func (x *InterfaceType) Start() int {
 	return x.Interface
 }
 

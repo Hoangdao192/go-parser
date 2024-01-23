@@ -9,7 +9,7 @@ type ArrayType struct {
 	Element     ast.Expression `json:"element"`     // element type
 }
 
-func (x *ArrayType) Position() int {
+func (x *ArrayType) Start() int {
 	return x.LeftBracket
 }
 

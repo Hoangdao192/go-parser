@@ -6,8 +6,8 @@ type SelectorExpression struct {
 	Sel        *Identifier `json:"sel"`        // field selector
 }
 
-func (x *SelectorExpression) Position() int {
-	return x.Expression.Position()
+func (x *SelectorExpression) Start() int {
+	return x.Expression.Start()
 }
 
 func (x *SelectorExpression) End() int {

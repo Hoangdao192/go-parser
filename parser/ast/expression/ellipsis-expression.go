@@ -7,7 +7,7 @@ type Ellipsis struct {
 	Element  Expression `json:"element"`  // ellipsis element type (parameter lists only); or nil
 }
 
-func (x *Ellipsis) Position() int {
+func (x *Ellipsis) Start() int {
 	return x.Ellipsis
 }
 

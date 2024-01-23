@@ -8,8 +8,8 @@ type KeyValueExpression struct {
 	Value Expression `json:"value"`
 }
 
-func (x *KeyValueExpression) Position() int {
-	return x.Key.Position()
+func (x *KeyValueExpression) Start() int {
+	return x.Key.Start()
 }
 
 func (x *KeyValueExpression) End() int {

@@ -8,7 +8,7 @@ type CommClause struct {
 	Body  []Statement `json:"body"`  // statement list; or nil
 }
 
-func (s *CommClause) Position() int {
+func (s *CommClause) Start() int {
 	return s.Case
 }
 

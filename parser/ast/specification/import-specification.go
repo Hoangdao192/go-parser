@@ -14,11 +14,11 @@ type ImportSpecification struct {
 	EndPosition int                      `json:"endPosition"` // end of spec (overrides Path.Pos if nonzero)
 }
 
-func (s *ImportSpecification) Position() int {
+func (s *ImportSpecification) Start() int {
 	if s.Name != nil {
-		return s.Name.Position()
+		return s.Name.Start()
 	}
-	return s.Path.Position()
+	return s.Path.Start()
 }
 
 func (s *ImportSpecification) End() int {

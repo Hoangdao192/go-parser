@@ -8,7 +8,7 @@ type BadExpression struct {
 	To   int `json:"to"`
 }
 
-func (x *BadExpression) Position() int {
+func (x *BadExpression) Start() int {
 	return x.From
 }
 

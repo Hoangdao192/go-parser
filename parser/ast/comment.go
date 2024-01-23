@@ -7,13 +7,14 @@ package ast
 // computed using len(Text), the position reported by End() does not match the
 // true source end position for comments containing carriage returns.
 type Comment struct {
+	Node
 	Slash int    // position of "/" starting the comment
 	Text  string // comment text (excluding '\n' for //-style comments)
 }
 
-func (c *Comment) Position() int {
+func (c Comment) Start() int {
 	return c.Slash
 }
-func (c *Comment) End() int {
+func (c Comment) End() int {
 	return c.Slash + len(c.Text)
 }

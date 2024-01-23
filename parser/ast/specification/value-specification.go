@@ -15,8 +15,8 @@ type ValueSpecification struct {
 	Comment *ast.CommentGroup        `json:"comment"` // line comments; or nil
 }
 
-func (s *ValueSpecification) Position() int {
-	return s.Names[0].Position()
+func (s *ValueSpecification) Start() int {
+	return s.Names[0].Start()
 }
 
 func (s *ValueSpecification) End() int {

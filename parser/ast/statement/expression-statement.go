@@ -10,8 +10,8 @@ type ExpressionStatement struct {
 	Expression expression.Expression `json:"Expression"`
 }
 
-func (s *ExpressionStatement) Position() int {
-	return s.Expression.Position()
+func (s *ExpressionStatement) Start() int {
+	return s.Expression.Start()
 }
 
 func (s *ExpressionStatement) End() int {

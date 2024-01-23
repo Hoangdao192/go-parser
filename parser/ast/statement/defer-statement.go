@@ -10,7 +10,7 @@ type DeferStatement struct {
 	Call  *expression.CallExpression `json:"call"`
 }
 
-func (s *DeferStatement) Position() int {
+func (s *DeferStatement) Start() int {
 	return s.Defer
 }
 

@@ -7,7 +7,7 @@ type StarExpression struct {
 	Expression Expression `json:"expression"` // operand
 }
 
-func (x *StarExpression) Position() int {
+func (x *StarExpression) Start() int {
 	return x.Star
 }
 

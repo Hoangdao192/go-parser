@@ -13,8 +13,8 @@ type AssignStatement struct {
 	Rhs      []expression.Expression `json:"rhs"`
 }
 
-func (s *AssignStatement) Position() int {
-	return s.Lhs[0].Position()
+func (s *AssignStatement) Start() int {
+	return s.Lhs[0].Start()
 }
 
 func (s *AssignStatement) End() int {

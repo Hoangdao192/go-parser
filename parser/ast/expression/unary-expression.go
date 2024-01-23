@@ -8,7 +8,7 @@ type UnaryExpression struct {
 	Expression Expression `json:"expression"` // operand
 }
 
-func (x *UnaryExpression) Position() int {
+func (x *UnaryExpression) Start() int {
 	return x.OpPos
 }
 

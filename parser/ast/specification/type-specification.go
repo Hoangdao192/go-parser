@@ -15,8 +15,8 @@ type TypeSpecification struct {
 	Comment    *ast.CommentGroup      `json:"comment"`    // line comments; or nil
 }
 
-func (s *TypeSpecification) Position() int {
-	return s.Name.Position()
+func (s *TypeSpecification) Start() int {
+	return s.Name.Start()
 }
 
 func (s *TypeSpecification) End() int {

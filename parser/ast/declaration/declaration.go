@@ -3,6 +3,6 @@ package declaration
 import "joern-go/parser/ast"
 
 type Declaration interface {
-	ast.Node
+	ast.INode
 	declarationNode()
 }

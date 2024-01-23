@@ -8,7 +8,7 @@ type GoStatement struct {
 	Call *expression.CallExpression `json:"call"`
 }
 
-func (s *GoStatement) Position() int {
+func (s *GoStatement) Start() int {
 	return s.Go
 }
 

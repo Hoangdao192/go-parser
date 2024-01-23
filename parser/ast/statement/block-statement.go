@@ -7,7 +7,7 @@ type BlockStatement struct {
 	Rbrace int         `json:"rbrace"` // position of "}", if any (may be absent due to syntax error)
 }
 
-func (s *BlockStatement) Position() int {
+func (s *BlockStatement) Start() int {
 	return s.Lbrace
 }
 

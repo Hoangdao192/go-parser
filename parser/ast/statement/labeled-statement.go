@@ -12,8 +12,8 @@ type LabeledStatement struct {
 	Colon int `json:"colon"`
 }
 
-func (s *LabeledStatement) Position() int {
-	return s.Label.Position()
+func (s *LabeledStatement) Start() int {
+	return s.Label.Start()
 }
 
 func (s *LabeledStatement) End() int {

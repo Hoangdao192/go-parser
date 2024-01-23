@@ -9,8 +9,8 @@ type TypeAssertExpression struct {
 	Rparen     int        `json:"rparen"`     // position of ")"
 }
 
-func (x *TypeAssertExpression) Position() int {
-	return x.Expression.Position()
+func (x *TypeAssertExpression) Start() int {
+	return x.Expression.Start()
 }
 
 func (x *TypeAssertExpression) End() int {

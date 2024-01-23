@@ -1,20 +1,27 @@
 package main
 
-import (
-	"fmt"
-	"path"
-)
+import "fmt"
 
-type Test struct {
-	number int
+type INode interface {
+	AddChild(INode)
+}
+
+type Node struct {
+	Children []*Node
+}
+
+func (n Node) AddChild(child INode) {
+	n.Children = append(n.Children, child.(*Node))
+}
+
+type Expression struct {
 }
 
 func main() {
-	
-	outDir := "/home/hoangdao/Workspace/Go/GoParser/hello.go"
-	fmt.Println(path.Dir(outDir))
-}
+	var child INode = &Node{}
 
-func printTest(test Test) {
-	fmt.Printf("%p\n", &test)
+	var n Node = Node{}
+	n.Children = append(n.Children, child.(*Node))
+	fmt.Println(b.Name)
+
 }

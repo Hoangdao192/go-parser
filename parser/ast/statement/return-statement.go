@@ -10,7 +10,7 @@ type ReturnStatement struct {
 	Results []expression.Expression `json:"results"` // result expressions; or nil
 }
 
-func (s *ReturnStatement) Position() int {
+func (s *ReturnStatement) Start() int {
 	return s.Return
 }
 
