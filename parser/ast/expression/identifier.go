@@ -4,6 +4,7 @@ import "joern-go/parser/ast"
 
 // An Identifier node represents an identifier.
 type Identifier struct {
+	ast.Node
 	// identifier position
 	NamePos int `json:"NamePos"`
 	// identifier name
@@ -12,12 +13,12 @@ type Identifier struct {
 	Object *ast.Object `json:"Object"`
 }
 
-func (x *Identifier) Start() int {
+func (x Identifier) Start() int {
 	return x.NamePos
 }
 
-func (x *Identifier) End() int {
+func (x Identifier) End() int {
 	return x.NamePos + len(x.Name)
 }
 
-func (*Identifier) ExpressionNode() {}
+func (Identifier) ExpressionNode() {}

@@ -7,6 +7,9 @@ import (
 	"go/token"
 	"io/fs"
 	data "joern-go/parser/ast"
+	"joern-go/parser/ast/expression"
+	"joern-go/parser/ast/statement"
+	"joern-go/parser/ast/types"
 	"joern-go/util"
 	"log"
 	"os"
@@ -72,7 +75,7 @@ func isGoFile(info fs.FileInfo) bool {
 		strings.LastIndex(info.Name(), ".go")+len(".go") == len(info.Name())
 }
 
-func parse(parent data.INode, node ast.Node) *data.INode {
+func parse(parent data.INode, node ast.Node) data.INode {
 	if node == nil {
 		return nil
 	}
@@ -85,7 +88,7 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 	switch n := node.(type) {
 	// Comments and fields
 	case *ast.Comment:
-		parsedNode = Build(node.(*ast.Comment))
+		parsedNode = BuildComment(node.(*ast.Comment))
 
 	case *ast.CommentGroup:
 		parsedNode = BuildCommentGroup(node.(*ast.CommentGroup))
@@ -94,109 +97,196 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			parsedNode.(data.Node).AddChild(childNode)
 		}
 
-	case *Field:
+	case *ast.Field:
+		parsedNode := BuildField(node.(*ast.Field))
 		if n.Doc != nil {
-			Walk(v, n.Doc)
+			var docNode = parse(parsedNode, n.Doc)
+			parsedNode.Doc = docNode.(data.CommentGroup)
 		}
-		walkIdentList(v, n.Names)
+
+		for _, x := range n.Names {
+			var identifierNode = parse(parsedNode, x)
+			parsedNode.Names = append(parsedNode.Names, identifierNode.(expression.Identifier))
+		}
+
 		if n.Type != nil {
-			Walk(v, n.Type)
+			var typeNode = parse(parsedNode, n.Type)
+			parsedNode.Type = typeNode.(expression.Expression)
 		}
 		if n.Tag != nil {
-			Walk(v, n.Tag)
+			tagNode := parse(parsedNode, n.Tag)
+			parsedNode.Tag = tagNode.(expression.BasicLiteral)
 		}
 		if n.Comment != nil {
-			Walk(v, n.Comment)
+			commentNode := parse(parsedNode, n.Comment)
+			parsedNode.Comment = commentNode.(data.CommentGroup)
 		}
 
-	case *FieldList:
+	case *ast.FieldList:
+		parsedNode := BuildFieldList(n)
 		for _, f := range n.List {
-			Walk(v, f)
+			fieldNode := parse(parsedNode, f)
+			parsedNode.List = append(parsedNode.List, fieldNode.(data.Field))
 		}
 
-	// Expressions
-	case *BadExpr, *Ident, *BasicLit:
-		// nothing to do
+	case *ast.BadExpr:
+		parsedNode := BuildBadExpression(n)
 
-	case *Ellipsis:
+	case *ast.Ident:
+		parsedNode := BuildIdentifier(n)
+
+	case *ast.BasicLit:
+		parsedNode := BuildBasicLiteral(n)
+
+	case *ast.Ellipsis:
+		parsedNode := BuildEllipsis(n)
 		if n.Elt != nil {
-			Walk(v, n.Elt)
+			elementNode := parse(parsedNode, n.Elt)
+			parsedNode.Element = elementNode.(expression.Expression)
 		}
 
-	case *FuncLit:
-		Walk(v, n.Type)
-		Walk(v, n.Body)
+	case *ast.FuncLit:
+		parsedNode := BuildFunctionLiteral(n)
+		parsedNode.Type = parse(parsedNode, n.Type).(types.FunctionType)
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
 
-	case *CompositeLit:
+	case *ast.CompositeLit:
+		parsedNode := BuildCompositeLiteral(n)
 		if n.Type != nil {
-			Walk(v, n.Type)
+			parsedNode.Type = parse(parsedNode, n.Type).(expression.Expression)
 		}
-		walkExprList(v, n.Elts)
+		for _, elt := range n.Elts {
+			elementNode := parse(parsedNode, elt)
+			parsedNode.Elements = append(parsedNode.Elements, elementNode.(expression.Expression))
+		}
 
-	case *ParenExpr:
-		Walk(v, n.X)
+	case *ast.ParenExpr:
+		parsedNode := BuildParenthesizedExpression(n)
+		expressionNode := parse(parsedNode, n.X)
+		parsedNode.Expression = expressionNode.(expression.Expression)
 
-	case *SelectorExpr:
-		Walk(v, n.X)
-		Walk(v, n.Sel)
+	case *ast.SelectorExpr:
+		parsedNode := expression.SelectorExpression{
+			Node: BuildNode(n),
+		}
+		expressionNode := parse(parsedNode, n.X)
+		parsedNode.Expression = expressionNode.(expression.Expression)
+		identifierNode := parse(parsedNode, n.Sel)
+		parsedNode.Sel = identifierNode.(expression.Identifier)
 
-	case *IndexExpr:
-		Walk(v, n.X)
-		Walk(v, n.Index)
+	case *ast.IndexExpr:
+		parsedNode := expression.IndexExpression{
+			Node:         BuildNode(n),
+			Expression:   parse(parsedNode, n.X).(expression.Expression),
+			LeftBracket:  int(n.Lbrack),
+			Index:        parse(parsedNode, n.Index).(expression.Expression),
+			RightBracket: int(n.Rbrack),
+		}
 
-	case *IndexListExpr:
-		Walk(v, n.X)
+	case *ast.IndexListExpr:
+		parsedNode := expression.IndexListExpression{
+			Node:         BuildNode(n),
+			Expression:   parse(parsedNode, n.X).(expression.Expression),
+			LeftBracket:  int(n.Lbrack),
+			Indices:      []expression.Expression{},
+			RightBracket: int(n.Rbrack),
+		}
 		for _, index := range n.Indices {
-			Walk(v, index)
+			parsedNode.Indices = append(
+				parsedNode.Indices, parse(parsedNode, index).(expression.Expression))
 		}
 
-	case *SliceExpr:
-		Walk(v, n.X)
+	case *ast.SliceExpr:
+		parsedNode := expression.SliceExpression{
+			Node:         BuildNode(n),
+			Expression:   parse(parsedNode, n.X).(expression.Expression),
+			LeftBracket:  int(n.Lbrack),
+			Slice3:       n.Slice3,
+			RightBracket: int(n.Rbrack),
+		}
 		if n.Low != nil {
-			Walk(v, n.Low)
+			parsedNode.Low = parse(parsedNode, n.Low).(expression.Expression)
 		}
 		if n.High != nil {
-			Walk(v, n.High)
+			parsedNode.High = parse(parsedNode, n.High).(expression.Expression)
 		}
 		if n.Max != nil {
-			Walk(v, n.Max)
+			parsedNode.Max = parse(parsedNode, n.Max).(expression.Expression)
 		}
 
-	case *TypeAssertExpr:
-		Walk(v, n.X)
+	case *ast.TypeAssertExpr:
+		parsedNode := expression.TypeAssertExpression{
+			Node:       BuildNode(n),
+			Expression: parse(parsedNode, n.X).(expression.Expression),
+			Lparen:     int(n.Lparen),
+			Rparen:     int(n.Rparen),
+		}
 		if n.Type != nil {
-			Walk(v, n.Type)
+			parsedNode.Type = parse(parsedNode, n.Type).(expression.Expression)
 		}
 
-	case *CallExpr:
-		Walk(v, n.Fun)
-		walkExprList(v, n.Args)
+	case *ast.CallExpr:
+		parsedNode := expression.CallExpression{
+			Node:     BuildNode(n),
+			Function: parse(parsedNode, n.Fun).(expression.Expression),
+			Args:     []expression.Expression{},
+		}
+		for _, arg := range n.Args {
+			parsedNode.Args = append(
+				parsedNode.Args, parse(parsedNode, arg).(expression.Expression))
+		}
 
-	case *StarExpr:
-		Walk(v, n.X)
+	case *ast.StarExpr:
+		parsedNode := expression.StarExpression{
+			Node:       BuildNode(n),
+			Star:       int(n.Star),
+			Expression: parse(parsedNode, n.X).(expression.Expression),
+		}
 
-	case *UnaryExpr:
-		Walk(v, n.X)
+	case *ast.UnaryExpr:
+		parsedNode := expression.UnaryExpression{
+			Node:       BuildNode(n),
+			OpPos:      int(n.OpPos),
+			Op:         int(n.Op),
+			Expression: parse(parsedNode, n.X).(expression.Expression),
+		}
 
-	case *BinaryExpr:
-		Walk(v, n.X)
-		Walk(v, n.Y)
+	case *ast.BinaryExpr:
+		parsedNode := expression.BinaryExpression{
+			Node:            BuildNode(n),
+			LeftExpression:  parse(parsedNode, n.X).(expression.Expression),
+			OpPos:           int(n.OpPos),
+			Op:              int(n.Op),
+			RightExpression: parse(parsedNode, n.Y).(expression.Expression),
+		}
 
-	case *KeyValueExpr:
-		Walk(v, n.Key)
-		Walk(v, n.Value)
+	case *ast.KeyValueExpr:
+		parsedNode := expression.KeyValueExpression{
+			Node:  BuildNode(n),
+			Key:   parse(parsedNode, n.Key).(expression.Expression),
+			Value: parse(parsedNode, n.Value).(expression.Expression),
+		}
 
 	// Types
-	case *ArrayType:
-		if n.Len != nil {
-			Walk(v, n.Len)
+	case *ast.ArrayType:
+		parsedNode := types.ArrayType{
+			Node:        BuildNode(n),
+			LeftBracket: int(n.Lbrack),
+			Element:     parse(parsedNode, n.Elt).(expression.Expression),
 		}
-		Walk(v, n.Elt)
+		if n.Len != nil {
+			parsedNode.Length = parse(parsedNode, n.Len).(expression.Expression)
+		}
 
-	case *StructType:
-		Walk(v, n.Fields)
+	case *ast.StructType:
+		parsedNode := types.StructType{
+			Node:       BuildNode(n),
+			Struct:     int(n.Struct),
+			Fields:     parse(parsedNode, n.Fields).(data.FieldList),
+			Incomplete: n.Incomplete,
+		}
 
-	case *FuncType:
+	case *ast.FuncType:
 		if n.TypeParams != nil {
 			Walk(v, n.TypeParams)
 		}
@@ -207,62 +297,62 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			Walk(v, n.Results)
 		}
 
-	case *InterfaceType:
+	case *ast.InterfaceType:
 		Walk(v, n.Methods)
 
-	case *MapType:
+	case *ast.MapType:
 		Walk(v, n.Key)
 		Walk(v, n.Value)
 
-	case *ChanType:
+	case *ast.ChanType:
 		Walk(v, n.Value)
 
 	// Statements
-	case *BadStmt:
+	case *ast.BadStmt:
 		// nothing to do
 
-	case *DeclStmt:
+	case *ast.DeclStmt:
 		Walk(v, n.Decl)
 
-	case *EmptyStmt:
+	case *ast.EmptyStmt:
 		// nothing to do
 
-	case *LabeledStmt:
+	case *ast.LabeledStmt:
 		Walk(v, n.Label)
 		Walk(v, n.Stmt)
 
-	case *ExprStmt:
-		Walk(v, n.X)
+	case *ast.ExprStmt:
+		expressionNode := parse(parsedNode, n.X)
 
-	case *SendStmt:
+	case *ast.SendStmt:
 		Walk(v, n.Chan)
 		Walk(v, n.Value)
 
-	case *IncDecStmt:
-		Walk(v, n.X)
+	case *ast.IncDecStmt:
+		expressionNode := parse(parsedNode, n.X)
 
-	case *AssignStmt:
+	case *ast.AssignStmt:
 		walkExprList(v, n.Lhs)
 		walkExprList(v, n.Rhs)
 
-	case *GoStmt:
+	case *ast.GoStmt:
 		Walk(v, n.Call)
 
-	case *DeferStmt:
+	case *ast.DeferStmt:
 		Walk(v, n.Call)
 
-	case *ReturnStmt:
+	case *ast.ReturnStmt:
 		walkExprList(v, n.Results)
 
-	case *BranchStmt:
+	case *ast.BranchStmt:
 		if n.Label != nil {
 			Walk(v, n.Label)
 		}
 
-	case *BlockStmt:
+	case *ast.BlockStmt:
 		walkStmtList(v, n.List)
 
-	case *IfStmt:
+	case *ast.IfStmt:
 		if n.Init != nil {
 			Walk(v, n.Init)
 		}
@@ -272,11 +362,11 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			Walk(v, n.Else)
 		}
 
-	case *CaseClause:
+	case *ast.CaseClause:
 		walkExprList(v, n.List)
 		walkStmtList(v, n.Body)
 
-	case *SwitchStmt:
+	case *ast.SwitchStmt:
 		if n.Init != nil {
 			Walk(v, n.Init)
 		}
@@ -285,23 +375,23 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 		}
 		Walk(v, n.Body)
 
-	case *TypeSwitchStmt:
+	case *ast.TypeSwitchStmt:
 		if n.Init != nil {
 			Walk(v, n.Init)
 		}
 		Walk(v, n.Assign)
 		Walk(v, n.Body)
 
-	case *CommClause:
+	case *ast.CommClause:
 		if n.Comm != nil {
 			Walk(v, n.Comm)
 		}
 		walkStmtList(v, n.Body)
 
-	case *SelectStmt:
+	case *ast.SelectStmt:
 		Walk(v, n.Body)
 
-	case *ForStmt:
+	case *ast.ForStmt:
 		if n.Init != nil {
 			Walk(v, n.Init)
 		}
@@ -313,18 +403,18 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 		}
 		Walk(v, n.Body)
 
-	case *RangeStmt:
+	case *ast.RangeStmt:
 		if n.Key != nil {
 			Walk(v, n.Key)
 		}
 		if n.Value != nil {
 			Walk(v, n.Value)
 		}
-		Walk(v, n.X)
+		expressionNode := parse(parsedNode, n.X)
 		Walk(v, n.Body)
 
 	// Declarations
-	case *ImportSpec:
+	case *ast.ImportSpec:
 		if n.Doc != nil {
 			Walk(v, n.Doc)
 		}
@@ -336,7 +426,7 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			Walk(v, n.Comment)
 		}
 
-	case *ValueSpec:
+	case *ast.ValueSpec:
 		if n.Doc != nil {
 			Walk(v, n.Doc)
 		}
@@ -349,7 +439,7 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			Walk(v, n.Comment)
 		}
 
-	case *TypeSpec:
+	case *ast.TypeSpec:
 		if n.Doc != nil {
 			Walk(v, n.Doc)
 		}
@@ -362,10 +452,10 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			Walk(v, n.Comment)
 		}
 
-	case *BadDecl:
+	case *ast.BadDecl:
 		// nothing to do
 
-	case *GenDecl:
+	case *ast.GenDecl:
 		if n.Doc != nil {
 			Walk(v, n.Doc)
 		}
@@ -373,7 +463,7 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 			Walk(v, s)
 		}
 
-	case *FuncDecl:
+	case *ast.FuncDecl:
 		if n.Doc != nil {
 			Walk(v, n.Doc)
 		}
@@ -387,7 +477,7 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 		}
 
 	// Files and packages
-	case *File:
+	case *ast.File:
 		if n.Doc != nil {
 			Walk(v, n.Doc)
 		}
@@ -397,7 +487,7 @@ func parse(parent data.INode, node ast.Node) *data.INode {
 		// visited already through the individual
 		// nodes
 
-	case *Package:
+	case *ast.Package:
 		for _, f := range n.Files {
 			Walk(v, f)
 		}

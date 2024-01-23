@@ -1,17 +1,20 @@
 package statement
 
+import "joern-go/parser/ast"
+
 // A BlockStatement node represents a braced statement list.
 type BlockStatement struct {
+	ast.Node
 	Lbrace int         `json:"lbrace"` // position of "{"
 	List   []Statement `json:"list"`
 	Rbrace int         `json:"rbrace"` // position of "}", if any (may be absent due to syntax error)
 }
 
-func (s *BlockStatement) Start() int {
+func (s BlockStatement) Start() int {
 	return s.Lbrace
 }
 
-func (s *BlockStatement) End() int {
+func (s BlockStatement) End() int {
 	if s.Rbrace != 0 {
 		return s.Rbrace + 1
 	}
@@ -21,4 +24,4 @@ func (s *BlockStatement) End() int {
 	return s.Lbrace + 1
 }
 
-func (*BlockStatement) StatementNode() {}
+func (BlockStatement) StatementNode() {}

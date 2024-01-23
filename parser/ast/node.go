@@ -7,12 +7,12 @@ type INode interface {
 }
 
 type Node struct {
-	Children      []*INode `json:"children"`
-	StartPosition int      `json:"start"`
-	EndPosition   int      `json:"end"`
+	Children      []INode `json:"children"`
+	StartPosition int     `json:"start"`
+	EndPosition   int     `json:"end"`
 }
 
-func (n Node) AddChild(child *INode) {
+func (n Node) AddChild(child INode) {
 	n.Children = append(n.Children, child)
 }
 

@@ -6,4 +6,6 @@ import "joern-go/parser/ast"
 type Expression interface {
 	ast.INode
 	ExpressionNode()
+	//Start() int
+	//End() int
 }

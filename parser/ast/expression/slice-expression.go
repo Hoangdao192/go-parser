@@ -1,7 +1,10 @@
 package expression
 
+import "joern-go/parser/ast"
+
 // A SliceExpression node represents an expression followed by slice indices.
 type SliceExpression struct {
+	ast.Node
 	Expression   Expression `json:"expression"`   // expression
 	LeftBracket  int        `json:"leftBracket"`  // position of "["
 	Low          Expression `json:"low"`          // begin of slice range; or nil
@@ -11,12 +14,12 @@ type SliceExpression struct {
 	RightBracket int        `json:"rightBracket"` // position of "]"
 }
 
-func (x *SliceExpression) Start() int {
+func (x SliceExpression) Start() int {
 	return x.Expression.Start()
 }
 
-func (x *SliceExpression) End() int {
+func (x SliceExpression) End() int {
 	return x.RightBracket + 1
 }
 
-func (*SliceExpression) ExpressionNode() {}
+func (SliceExpression) ExpressionNode() {}
