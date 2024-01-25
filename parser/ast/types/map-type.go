@@ -1,20 +1,24 @@
 package types
 
-import "joern-go/parser/ast"
+import (
+	"joern-go/parser/ast"
+	"joern-go/parser/ast/expression"
+)
 
 // A MapType node represents a map type.
 type MapType struct {
-	Map   int            `json:"map"` // position of "map" keyword
-	Key   ast.Expression `json:"key"`
-	Value ast.Expression `json:"value"`
+	ast.Node
+	Map   int                   `json:"map"` // position of "map" keyword
+	Key   expression.Expression `json:"key"`
+	Value expression.Expression `json:"value"`
 }
 
-func (x *MapType) Start() int {
+func (x MapType) Start() int {
 	return x.Map
 }
 
-func (x *MapType) End() int {
+func (x MapType) End() int {
 	return x.Value.End()
 }
 
-func (*MapType) ExpressionNode() {}
+func (MapType) ExpressionNode() {}

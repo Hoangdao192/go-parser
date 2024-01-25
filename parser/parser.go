@@ -1,20 +1,31 @@
 package parser
 
 import (
+	"encoding/json"
 	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/token"
-	"io/fs"
-	data "joern-go/parser/ast"
-	"joern-go/parser/ast/expression"
-	"joern-go/parser/ast/statement"
-	"joern-go/parser/ast/types"
 	"joern-go/util"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
+
+	//"go/parser"
+	//"go/token"
+	"io/fs"
+	data "joern-go/parser/ast"
+	"joern-go/parser/ast/declaration"
+	"joern-go/parser/ast/expression"
+	"joern-go/parser/ast/specification"
+	"joern-go/parser/ast/statement"
+	"joern-go/parser/ast/types"
+	//"joern-go/util"
+	//"log"
+	//"os"
+	//"path"
+	//"path/filepath"
 	"strings"
 )
 
@@ -38,16 +49,19 @@ func Parse(sourceDir string, destDir string) {
 				parsedFile, parseErr := parser.ParseFile(token.NewFileSet(), info.Name(),
 					fileContent, parser.AllErrors)
 				if parseErr == nil {
-					jsonData, jsonErr := json.Marshal(parsedFile)
+					fileNode := data.File{}
+					jsonData, jsonErr := json.Marshal(parse(fileNode, parsedFile))
 					if jsonErr == nil {
-						saveFilePath := outDir + "/" + filepath[strings.Index(
-							filepath, projectDir):] + ".json"
+						saveFilePath := destDir + "/" + filepath[strings.Index(
+							filepath, sourceDir):] + ".json"
 						saveFile, openFileErr := os.OpenFile(saveFilePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC,
 							os.ModePerm)
 						if openFileErr != nil {
 							log.Fatal(openFileErr)
 						}
 						saveFile.Write(jsonData)
+					} else {
+						log.Fatal(jsonErr)
 					}
 				} else {
 					log.Fatal(parseErr)
@@ -60,14 +74,6 @@ func Parse(sourceDir string, destDir string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	fs := token.NewFileSet()
-	f, err := parser.ParseFile(fs, "", "package main; var a = 3", parser.DeclarationErrors)
-	if err != nil {
-		log.Fatal(err)
-	}
-	var v visitor
-	ast.Walk(v, f)
 }
 
 func isGoFile(info fs.FileInfo) bool {
@@ -96,6 +102,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			childNode := parse(parsedNode, c)
 			parsedNode.(data.Node).AddChild(childNode)
 		}
+		return parsedNode
 
 	case *ast.Field:
 		parsedNode := BuildField(node.(*ast.Field))
@@ -121,6 +128,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			commentNode := parse(parsedNode, n.Comment)
 			parsedNode.Comment = commentNode.(data.CommentGroup)
 		}
+		return parsedNode
 
 	case *ast.FieldList:
 		parsedNode := BuildFieldList(n)
@@ -128,15 +136,19 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			fieldNode := parse(parsedNode, f)
 			parsedNode.List = append(parsedNode.List, fieldNode.(data.Field))
 		}
+		return parsedNode
 
 	case *ast.BadExpr:
 		parsedNode := BuildBadExpression(n)
+		return parsedNode
 
 	case *ast.Ident:
 		parsedNode := BuildIdentifier(n)
+		return parsedNode
 
 	case *ast.BasicLit:
 		parsedNode := BuildBasicLiteral(n)
+		return parsedNode
 
 	case *ast.Ellipsis:
 		parsedNode := BuildEllipsis(n)
@@ -144,11 +156,13 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			elementNode := parse(parsedNode, n.Elt)
 			parsedNode.Element = elementNode.(expression.Expression)
 		}
+		return parsedNode
 
 	case *ast.FuncLit:
 		parsedNode := BuildFunctionLiteral(n)
 		parsedNode.Type = parse(parsedNode, n.Type).(types.FunctionType)
 		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
+		return parsedNode
 
 	case *ast.CompositeLit:
 		parsedNode := BuildCompositeLiteral(n)
@@ -159,11 +173,13 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			elementNode := parse(parsedNode, elt)
 			parsedNode.Elements = append(parsedNode.Elements, elementNode.(expression.Expression))
 		}
+		return parsedNode
 
 	case *ast.ParenExpr:
 		parsedNode := BuildParenthesizedExpression(n)
 		expressionNode := parse(parsedNode, n.X)
 		parsedNode.Expression = expressionNode.(expression.Expression)
+		return parsedNode
 
 	case *ast.SelectorExpr:
 		parsedNode := expression.SelectorExpression{
@@ -173,6 +189,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 		parsedNode.Expression = expressionNode.(expression.Expression)
 		identifierNode := parse(parsedNode, n.Sel)
 		parsedNode.Sel = identifierNode.(expression.Identifier)
+		return parsedNode
 
 	case *ast.IndexExpr:
 		parsedNode := expression.IndexExpression{
@@ -182,6 +199,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			Index:        parse(parsedNode, n.Index).(expression.Expression),
 			RightBracket: int(n.Rbrack),
 		}
+		return parsedNode
 
 	case *ast.IndexListExpr:
 		parsedNode := expression.IndexListExpression{
@@ -195,6 +213,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			parsedNode.Indices = append(
 				parsedNode.Indices, parse(parsedNode, index).(expression.Expression))
 		}
+		return parsedNode
 
 	case *ast.SliceExpr:
 		parsedNode := expression.SliceExpression{
@@ -213,6 +232,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 		if n.Max != nil {
 			parsedNode.Max = parse(parsedNode, n.Max).(expression.Expression)
 		}
+		return parsedNode
 
 	case *ast.TypeAssertExpr:
 		parsedNode := expression.TypeAssertExpression{
@@ -224,6 +244,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 		if n.Type != nil {
 			parsedNode.Type = parse(parsedNode, n.Type).(expression.Expression)
 		}
+		return parsedNode
 
 	case *ast.CallExpr:
 		parsedNode := expression.CallExpression{
@@ -235,6 +256,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			parsedNode.Args = append(
 				parsedNode.Args, parse(parsedNode, arg).(expression.Expression))
 		}
+		return parsedNode
 
 	case *ast.StarExpr:
 		parsedNode := expression.StarExpression{
@@ -242,6 +264,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			Star:       int(n.Star),
 			Expression: parse(parsedNode, n.X).(expression.Expression),
 		}
+		return parsedNode
 
 	case *ast.UnaryExpr:
 		parsedNode := expression.UnaryExpression{
@@ -250,6 +273,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			Op:         int(n.Op),
 			Expression: parse(parsedNode, n.X).(expression.Expression),
 		}
+		return parsedNode
 
 	case *ast.BinaryExpr:
 		parsedNode := expression.BinaryExpression{
@@ -259,6 +283,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			Op:              int(n.Op),
 			RightExpression: parse(parsedNode, n.Y).(expression.Expression),
 		}
+		return parsedNode
 
 	case *ast.KeyValueExpr:
 		parsedNode := expression.KeyValueExpression{
@@ -266,6 +291,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			Key:   parse(parsedNode, n.Key).(expression.Expression),
 			Value: parse(parsedNode, n.Value).(expression.Expression),
 		}
+		return parsedNode
 
 	// Types
 	case *ast.ArrayType:
@@ -277,6 +303,7 @@ func parse(parent data.INode, node ast.Node) data.INode {
 		if n.Len != nil {
 			parsedNode.Length = parse(parsedNode, n.Len).(expression.Expression)
 		}
+		return parsedNode
 
 	case *ast.StructType:
 		parsedNode := types.StructType{
@@ -285,216 +312,434 @@ func parse(parent data.INode, node ast.Node) data.INode {
 			Fields:     parse(parsedNode, n.Fields).(data.FieldList),
 			Incomplete: n.Incomplete,
 		}
+		return parsedNode
 
 	case *ast.FuncType:
+		parsedNode := types.FunctionType{
+			Node:     BuildNode(n),
+			Function: int(n.Func),
+		}
 		if n.TypeParams != nil {
-			Walk(v, n.TypeParams)
+			parsedNode.TypeParams = parse(parsedNode, n.TypeParams).(data.FieldList)
 		}
 		if n.Params != nil {
-			Walk(v, n.Params)
+			parsedNode.Params = parse(parsedNode, n.Params).(data.FieldList)
 		}
 		if n.Results != nil {
-			Walk(v, n.Results)
+			parsedNode.Results = parse(parsedNode, n.Results).(data.FieldList)
 		}
+		return parsedNode
 
 	case *ast.InterfaceType:
-		Walk(v, n.Methods)
+		parsedNode := types.InterfaceType{
+			Node:       BuildNode(n),
+			Interface:  int(n.Interface),
+			Incomplete: n.Incomplete,
+		}
+		parsedNode.Methods = parse(parsedNode, n.Methods).(data.FieldList)
+		return parsedNode
 
 	case *ast.MapType:
-		Walk(v, n.Key)
-		Walk(v, n.Value)
+		parsedNode := types.MapType{
+			Node: BuildNode(n),
+			Map:  int(n.Map),
+		}
+		parsedNode.Key = parse(parsedNode, n.Key).(expression.Expression)
+		parsedNode.Value = parse(parsedNode, n.Value).(expression.Expression)
+		return parsedNode
 
 	case *ast.ChanType:
-		Walk(v, n.Value)
+		parsedNode := types.ChanelType{
+			Node:      BuildNode(n),
+			Begin:     int(n.Begin),
+			Arrow:     int(n.Arrow),
+			Direction: int(n.Dir),
+		}
+		parsedNode.Value = parse(parsedNode, n.Value).(expression.Expression)
+		return parsedNode
 
 	// Statements
 	case *ast.BadStmt:
-		// nothing to do
+		parsedNode := statement.BadStatement{
+			Node: BuildNode(n),
+			From: int(n.From),
+			To:   int(n.To),
+		}
+		return parsedNode
 
 	case *ast.DeclStmt:
-		Walk(v, n.Decl)
+		parsedNode := statement.DeclarationStatement{
+			Node: BuildNode(n),
+		}
+		parsedNode.Declaration = parse(parsedNode, n.Decl).(declaration.Declaration)
+		return parsedNode
 
 	case *ast.EmptyStmt:
-		// nothing to do
+		parsedNode := statement.EmptyStatement{
+			Node:      BuildNode(n),
+			Semicolon: int(n.Semicolon),
+			Implicit:  n.Implicit,
+		}
+		return parsedNode
 
 	case *ast.LabeledStmt:
-		Walk(v, n.Label)
-		Walk(v, n.Stmt)
+		parsedNode := statement.LabeledStatement{
+			Node:  BuildNode(n),
+			Colon: int(n.Colon),
+		}
+		parsedNode.Label = parse(parsedNode, n.Label).(expression.Identifier)
+		parsedNode.Statement = parse(parsedNode, n.Stmt).(statement.Statement)
+		return parsedNode
 
 	case *ast.ExprStmt:
-		expressionNode := parse(parsedNode, n.X)
+		parsedNode := statement.ExpressionStatement{
+			Node: BuildNode(n),
+		}
+		parsedNode.Expression = parse(parsedNode, n.X).(expression.Expression)
+		return parsedNode
 
 	case *ast.SendStmt:
-		Walk(v, n.Chan)
-		Walk(v, n.Value)
+		parsedNode := statement.SendStatement{
+			Node:  BuildNode(n),
+			Arrow: int(n.Arrow),
+		}
+		parsedNode.Chanel = parse(parsedNode, n.Chan).(expression.Expression)
+		parsedNode.Value = parse(parsedNode, n.Value).(expression.Expression)
+		return parsedNode
 
 	case *ast.IncDecStmt:
-		expressionNode := parse(parsedNode, n.X)
+		parsedNode := statement.IncrementDecrementStatement{
+			Node:          BuildNode(n),
+			TokenPosition: int(n.TokPos),
+			Token:         int(n.Tok),
+		}
+		parsedNode.Expression = parse(parsedNode, n.X).(expression.Expression)
+		return parsedNode
 
 	case *ast.AssignStmt:
-		walkExprList(v, n.Lhs)
-		walkExprList(v, n.Rhs)
+		parsedNode := statement.AssignStatement{
+			Node:     BuildNode(n),
+			Lhs:      []expression.Expression{},
+			TokenPos: int(n.TokPos),
+			Token:    int(n.Tok),
+			Rhs:      []expression.Expression{},
+		}
+		for _, expr := range n.Lhs {
+			parsedNode.Lhs = append(parsedNode.Lhs, parse(parsedNode, expr).(expression.Expression))
+		}
+		for _, expr := range n.Rhs {
+			parsedNode.Rhs = append(parsedNode.Rhs, parse(parsedNode, expr).(expression.Expression))
+		}
+		return parsedNode
 
 	case *ast.GoStmt:
-		Walk(v, n.Call)
+		parsedNode := statement.GoStatement{
+			Node: BuildNode(n),
+			Go:   int(n.Go),
+		}
+		parsedNode.Call = parse(parsedNode, n.Call).(expression.CallExpression)
+		return parsedNode
 
 	case *ast.DeferStmt:
-		Walk(v, n.Call)
+		parsedNode := statement.DeferStatement{
+			Node:  BuildNode(n),
+			Defer: int(n.Defer),
+		}
+		parsedNode.Call = parse(parsedNode, n.Call).(expression.CallExpression)
+		return parsedNode
 
 	case *ast.ReturnStmt:
-		walkExprList(v, n.Results)
+		parsedNode := statement.ReturnStatement{
+			Node:    BuildNode(n),
+			Return:  int(n.Return),
+			Results: []expression.Expression{},
+		}
+		for _, expr := range n.Results {
+			parsedNode.Results = append(parsedNode.Results, parse(parsedNode, expr).(expression.Expression))
+		}
+		return parsedNode
 
 	case *ast.BranchStmt:
-		if n.Label != nil {
-			Walk(v, n.Label)
+		parsedNode := statement.BranchStatement{
+			Node:          BuildNode(n),
+			TokenPosition: int(n.TokPos),
+			Token:         int(n.Tok),
 		}
+		if n.Label != nil {
+			parsedNode.Label = parse(parsedNode, n.Label).(expression.Identifier)
+		}
+		return parsedNode
 
 	case *ast.BlockStmt:
-		walkStmtList(v, n.List)
+		parsedNode := statement.BlockStatement{
+			Node:   BuildNode(n),
+			Lbrace: int(n.Lbrace),
+			List:   []statement.Statement{},
+			Rbrace: int(n.Rbrace),
+		}
+		for _, stmt := range n.List {
+			parsedNode.List = append(parsedNode.List, parse(parsedNode, stmt).(statement.Statement))
+		}
+		return parsedNode
 
 	case *ast.IfStmt:
+		parsedNode := statement.IfStatement{
+			Node: BuildNode(n),
+			If:   int(n.If),
+		}
 		if n.Init != nil {
-			Walk(v, n.Init)
+			parsedNode.Initialization = parse(parsedNode, n.Init).(statement.Statement)
 		}
-		Walk(v, n.Cond)
-		Walk(v, n.Body)
+		parsedNode.Condition = parse(parsedNode, n.Cond).(expression.Expression)
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
 		if n.Else != nil {
-			Walk(v, n.Else)
+			parsedNode.Else = parse(parsedNode, n.Else).(statement.Statement)
 		}
+		return parsedNode
 
 	case *ast.CaseClause:
-		walkExprList(v, n.List)
-		walkStmtList(v, n.Body)
+		parsedNode := statement.CaseClause{
+			Node:  BuildNode(n),
+			Case:  int(n.Case),
+			List:  []expression.Expression{},
+			Colon: int(n.Colon),
+			Body:  []statement.Statement{},
+		}
+		for _, expr := range n.List {
+			parsedNode.List = append(parsedNode.List, parse(parsedNode, expr).(expression.Expression))
+		}
+		for _, stmt := range n.Body {
+			parsedNode.Body = append(parsedNode.Body, parse(parsedNode, stmt).(statement.Statement))
+		}
+		return parsedNode
 
 	case *ast.SwitchStmt:
+		parsedNode := statement.SwitchStatement{
+			Node:   BuildNode(n),
+			Switch: int(n.Switch),
+		}
 		if n.Init != nil {
-			Walk(v, n.Init)
+			parsedNode.Initialization = parse(parsedNode, n.Init).(statement.Statement)
 		}
 		if n.Tag != nil {
-			Walk(v, n.Tag)
+			parsedNode.Tag = parse(parsedNode, n.Tag).(expression.Expression)
 		}
-		Walk(v, n.Body)
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
+		return parsedNode
 
 	case *ast.TypeSwitchStmt:
-		if n.Init != nil {
-			Walk(v, n.Init)
+		parsedNode := statement.TypeSwitchStatement{
+			Node:   BuildNode(n),
+			Switch: int(n.Switch),
 		}
-		Walk(v, n.Assign)
-		Walk(v, n.Body)
+		if n.Init != nil {
+			parsedNode.Initialization = parse(parsedNode, n.Init).(statement.Statement)
+		}
+		parsedNode.Assign = parse(parsedNode, n.Assign).(statement.Statement)
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
+		return parsedNode
 
 	case *ast.CommClause:
-		if n.Comm != nil {
-			Walk(v, n.Comm)
+		parsedNode := statement.CommClause{
+			Node:  BuildNode(n),
+			Case:  int(n.Case),
+			Colon: int(n.Colon),
+			Body:  []statement.Statement{},
 		}
-		walkStmtList(v, n.Body)
+		if n.Comm != nil {
+			parsedNode.Comm = parse(parsedNode, n.Comm).(statement.Statement)
+		}
+		for _, stmt := range n.Body {
+			parsedNode.Body = append(parsedNode.Body, parse(parsedNode, stmt).(statement.Statement))
+		}
+		return parsedNode
 
 	case *ast.SelectStmt:
-		Walk(v, n.Body)
+		parsedNode := statement.SelectStatement{
+			Node:   BuildNode(n),
+			Select: int(n.Select),
+		}
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
+		return parsedNode
 
 	case *ast.ForStmt:
+		parsedNode := statement.ForStatement{
+			Node: BuildNode(n),
+			For:  int(n.For),
+		}
 		if n.Init != nil {
-			Walk(v, n.Init)
+			parsedNode.Initialization = parse(parsedNode, n.Init).(statement.Statement)
 		}
 		if n.Cond != nil {
-			Walk(v, n.Cond)
+			parsedNode.Condition = parse(parsedNode, n.Cond).(expression.Expression)
 		}
 		if n.Post != nil {
-			Walk(v, n.Post)
+			parsedNode.Post = parse(parsedNode, n.Post).(statement.Statement)
 		}
-		Walk(v, n.Body)
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
+		return parsedNode
 
 	case *ast.RangeStmt:
+		parsedNode := statement.RangeStatement{
+			Node:     BuildNode(n),
+			For:      int(n.For),
+			TokenPos: int(n.TokPos),
+			Token:    int(n.Tok),
+			Range:    int(n.Range),
+		}
 		if n.Key != nil {
-			Walk(v, n.Key)
+			parsedNode.Key = parse(parsedNode, n.Key).(expression.Expression)
 		}
 		if n.Value != nil {
-			Walk(v, n.Value)
+			parsedNode.Value = parse(parsedNode, n.Value).(expression.Expression)
 		}
-		expressionNode := parse(parsedNode, n.X)
-		Walk(v, n.Body)
+		parsedNode.Expression = parse(parsedNode, n.X).(expression.Expression)
+		parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
+		return parsedNode
 
 	// Declarations
 	case *ast.ImportSpec:
+		parsedNode := specification.ImportSpecification{
+			Node:        BuildNode(n),
+			EndPosition: int(n.EndPos),
+		}
 		if n.Doc != nil {
-			Walk(v, n.Doc)
+			parsedNode.Doc = parse(parsedNode, n.Doc).(data.CommentGroup)
 		}
 		if n.Name != nil {
-			Walk(v, n.Name)
+			parsedNode.Name = parse(parsedNode, n.Name).(expression.Identifier)
 		}
-		Walk(v, n.Path)
+		parsedNode.Path = parse(parsedNode, n.Path).(expression.BasicLiteral)
 		if n.Comment != nil {
-			Walk(v, n.Comment)
+			parsedNode.Comment = parse(parsedNode, n.Comment).(data.CommentGroup)
 		}
+		return parsedNode
 
 	case *ast.ValueSpec:
+		parsedNode := specification.ValueSpecification{
+			Node:   BuildNode(n),
+			Names:  []expression.Identifier{},
+			Values: []expression.Expression{},
+		}
 		if n.Doc != nil {
-			Walk(v, n.Doc)
+			parsedNode.Doc = parse(parsedNode, n.Doc).(data.CommentGroup)
 		}
-		walkIdentList(v, n.Names)
+		for _, ident := range n.Names {
+			parsedNode.Names = append(parsedNode.Names, parse(parsedNode, ident).(expression.Identifier))
+		}
 		if n.Type != nil {
-			Walk(v, n.Type)
+			parsedNode.Type = parse(parsedNode, n.Type).(expression.Expression)
 		}
-		walkExprList(v, n.Values)
+		for _, expr := range n.Values {
+			parsedNode.Values = append(parsedNode.Values, parse(parsedNode, expr).(expression.Expression))
+		}
 		if n.Comment != nil {
-			Walk(v, n.Comment)
+			parsedNode.Comment = parse(parsedNode, n.Comment).(data.CommentGroup)
 		}
+		return parsedNode
 
 	case *ast.TypeSpec:
+		parsedNode := specification.TypeSpecification{
+			Node:   BuildNode(n),
+			Assign: int(n.Assign),
+		}
 		if n.Doc != nil {
-			Walk(v, n.Doc)
+			parsedNode.Doc = parse(parsedNode, n.Doc).(data.CommentGroup)
 		}
-		Walk(v, n.Name)
+		parsedNode.Name = parse(parsedNode, n.Name).(expression.Identifier)
 		if n.TypeParams != nil {
-			Walk(v, n.TypeParams)
+			parsedNode.TypeParams = parse(parsedNode, n.TypeParams).(data.FieldList)
 		}
-		Walk(v, n.Type)
+		parsedNode.Type = parse(parsedNode, n.Type).(expression.Expression)
 		if n.Comment != nil {
-			Walk(v, n.Comment)
+			parsedNode.Comment = parse(parsedNode, n.Comment).(data.CommentGroup)
 		}
+		return parsedNode
 
 	case *ast.BadDecl:
+		parsedNode := declaration.BadDeclaration{
+			Node: BuildNode(n),
+			From: int(n.From),
+			To:   int(n.To),
+		}
 		// nothing to do
+		return parsedNode
 
 	case *ast.GenDecl:
+		parsedNode := declaration.GenericDeclaration{
+			Node:           BuildNode(n),
+			TokenPosition:  int(n.TokPos),
+			Token:          int(n.Tok),
+			Lparen:         int(n.Lparen),
+			Specifications: []specification.Specification{},
+			Rparen:         int(n.Rparen),
+		}
 		if n.Doc != nil {
-			Walk(v, n.Doc)
+			parsedNode.Doc = parse(parsedNode, n.Doc).(data.CommentGroup)
 		}
 		for _, s := range n.Specs {
-			Walk(v, s)
+			parsedNode.Specifications = append(parsedNode.Specifications, parse(parsedNode, s).(specification.Specification))
 		}
+		return parsedNode
 
 	case *ast.FuncDecl:
+		parsedNode := declaration.FunctionDeclaration{
+			Node: BuildNode(n),
+		}
 		if n.Doc != nil {
-			Walk(v, n.Doc)
+			parsedNode.Doc = parse(parsedNode, n.Doc).(data.CommentGroup)
 		}
 		if n.Recv != nil {
-			Walk(v, n.Recv)
+			parsedNode.Receiver = parse(parsedNode, n.Recv).(data.FieldList)
 		}
-		Walk(v, n.Name)
-		Walk(v, n.Type)
+		parsedNode.Name = parse(parsedNode, n.Name).(expression.Identifier)
+		parsedNode.Type = parse(parsedNode, n.Type).(types.FunctionType)
 		if n.Body != nil {
-			Walk(v, n.Body)
+			parsedNode.Body = parse(parsedNode, n.Body).(statement.BlockStatement)
 		}
+		return parsedNode
 
 	// Files and packages
 	case *ast.File:
-		if n.Doc != nil {
-			Walk(v, n.Doc)
+		parsedNode := data.File{
+			Node:         BuildNode(n),
+			Package:      int(n.Package),
+			Declarations: []declaration.Declaration{},
+			FileStart:    int(n.FileStart),
+			FileEnd:      int(n.FileEnd),
+			Imports:      []specification.ImportSpecification{},
+			Unresolved:   []expression.Identifier{},
+			Comments:     []data.CommentGroup{},
+			GoVersion:    n.GoVersion,
 		}
-		Walk(v, n.Name)
-		walkDeclList(v, n.Decls)
+		if n.Doc != nil {
+			parsedNode.Doc = parse(parsedNode, n.Doc).(data.CommentGroup)
+		}
+		parsedNode.Name = parse(parsedNode, n.Name).(expression.Identifier)
+		for _, decl := range n.Decls {
+			parsedNode.Declarations = append(parsedNode.Declarations, parse(parsedNode, decl).(declaration.Declaration))
+		}
 		// don't walk n.Comments - they have been
 		// visited already through the individual
 		// nodes
+		return parsedNode
 
 	case *ast.Package:
-		for _, f := range n.Files {
-			Walk(v, f)
+		parsedNode := data.Package{
+			Node:    BuildNode(n),
+			Name:    n.Name,
+			Imports: map[string]data.Object{},
+			Files:   map[string]*data.File{},
 		}
+		//for _, f := range n.Files {
+		//	fileNode = parse()
+		//	Walk(v, f)
+		//}
+		return parsedNode
 
 	default:
 		panic(fmt.Sprintf("ast.Walk: unexpected node type %T", n))
 	}
 
-	v.Visit(nil)
+	return parsedNode
 }
