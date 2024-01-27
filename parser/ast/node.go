@@ -10,6 +10,7 @@ type Node struct {
 	Children      []INode `json:"children"`
 	StartPosition int     `json:"start"`
 	EndPosition   int     `json:"end"`
+	NodeType      string  `json:"nodeType"`
 }
 
 func (n Node) AddChild(child INode) {

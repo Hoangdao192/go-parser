@@ -1,11 +1,5 @@
 package ast
 
-import (
-	"joern-go/parser/ast/declaration"
-	"joern-go/parser/ast/expression"
-	"joern-go/parser/ast/specification"
-)
-
 // A File node represents a Go source file.
 //
 // The Comments list contains all comments in the source file in order of
@@ -26,17 +20,17 @@ import (
 // are "free-floating" (see also issues #18593, #20744).
 type File struct {
 	Node
-	Doc          CommentGroup                        `json:"doc"`          // associated documentation; or nil
-	Package      int                                 `json:"package"`      // position of "package" keyword
-	Name         expression.Identifier               `json:"name"`         // package name
-	Declarations []declaration.Declaration           `json:"declarations"` // top-level declarations; or nil
-	FileStart    int                                 `json:"fileStart"`    // start of entire file
-	FileEnd      int                                 `json:"fileEnd"`      // end of entire file
-	Scope        Scope                               `json:"scope"`        // package scope (this file only)
-	Imports      []specification.ImportSpecification `json:"imports"`      // imports in this file
-	Unresolved   []expression.Identifier             `json:"unresolved"`   // unresolved identifiers in this file
-	Comments     []CommentGroup                      `json:"comments"`     // list of all comments in the source file
-	GoVersion    string                              `json:"goVersion"`    // minimum Go version required by //go:build or // +build directives
+	Doc          CommentGroup          `json:"doc"`          // associated documentation; or nil
+	Package      int                   `json:"package"`      // position of "package" keyword
+	Name         Identifier            `json:"name"`         // package name
+	Declarations []Declaration         `json:"declarations"` // top-level declarations; or nil
+	FileStart    int                   `json:"fileStart"`    // start of entire file
+	FileEnd      int                   `json:"fileEnd"`      // end of entire file
+	Scope        Scope                 `json:"scope"`        // package scope (this file only)
+	Imports      []ImportSpecification `json:"imports"`      // imports in this file
+	Unresolved   []Identifier          `json:"unresolved"`   // unresolved identifiers in this file
+	Comments     []CommentGroup        `json:"comments"`     // list of all comments in the source file
+	GoVersion    string                `json:"goVersion"`    // minimum Go version required by //go:build or // +build directives
 }
 
 // Position returns the position of the package declaration.

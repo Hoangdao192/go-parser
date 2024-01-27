@@ -1,9 +1,5 @@
 package ast
 
-import (
-	"joern-go/parser/ast/expression"
-)
-
 // A Field represents a Field declaration list in a struct type,
 // a method list in an interface type, or a parameter/result declaration
 // in a signature.
@@ -11,11 +7,11 @@ import (
 // and embedded struct fields. In the latter case, the field name is the type name.
 type Field struct {
 	Node
-	Doc     CommentGroup            `json:"doc"`     // associated documentation; or nil
-	Names   []expression.Identifier `json:"names"`   // field/method/(type) parameter names; or nil
-	Type    expression.Expression   `json:"type"`    // field/method/parameter type; or nil
-	Tag     expression.BasicLiteral `json:"tag"`     // field tag; or nil
-	Comment CommentGroup            `json:"comment"` // line comments; or nil
+	Doc     CommentGroup `json:"doc"`     // associated documentation; or nil
+	Names   []Identifier `json:"names"`   // field/method/(type) parameter names; or nil
+	Type    Expression   `json:"type"`    // field/method/parameter type; or nil
+	Tag     BasicLiteral `json:"tag"`     // field tag; or nil
+	Comment CommentGroup `json:"comment"` // line comments; or nil
 }
 
 func (f Field) Start() int {
@@ -23,13 +19,13 @@ func (f Field) Start() int {
 		return f.Names[0].Start()
 	}
 	if f.Type != nil {
-		return f.Type.Position()
+		return f.Type.Start()
 	}
 	return 0
 }
 
 func (f Field) End() int {
-	if f.Tag != nil {
+	if f.Tag.Start() != 0 {
 		return f.Tag.End()
 	}
 	if f.Type != nil {

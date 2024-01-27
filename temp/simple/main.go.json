@@ -1,0 +1,145 @@
+{
+  "children": [],
+  "start": 1,
+  "end": 55,
+  "nodeType": "File",
+  "doc": {
+    "children": null,
+    "start": 0,
+    "end": 0,
+    "nodeType": "",
+    "Comments": null
+  },
+  "package": 1,
+  "name": {
+    "children": [],
+    "start": 9,
+    "end": 13,
+    "nodeType": "Identifier",
+    "NamePos": 9,
+    "Name": "main",
+    "Object": null
+  },
+  "declarations": [
+    {
+      "children": [],
+      "start": 15,
+      "end": 55,
+      "nodeType": "FunctionDeclaration",
+      "doc": {
+        "children": null,
+        "start": 0,
+        "end": 0,
+        "nodeType": "",
+        "Comments": null
+      },
+      "receiver": {
+        "children": null,
+        "start": 0,
+        "end": 0,
+        "nodeType": "",
+        "opening": 0,
+        "list": null,
+        "closing": 0
+      },
+      "name": {
+        "children": [],
+        "start": 20,
+        "end": 24,
+        "nodeType": "Identifier",
+        "NamePos": 20,
+        "Name": "main",
+        "Object": null
+      },
+      "type": {
+        "children": [],
+        "start": 15,
+        "end": 26,
+        "nodeType": "FunctionType",
+        "Function": 15,
+        "TypeParams": {
+          "children": null,
+          "start": 0,
+          "end": 0,
+          "nodeType": "",
+          "opening": 0,
+          "list": null,
+          "closing": 0
+        },
+        "Params": {
+          "children": [],
+          "start": 24,
+          "end": 26,
+          "nodeType": "",
+          "opening": 24,
+          "list": [],
+          "closing": 25
+        },
+        "Results": {
+          "children": null,
+          "start": 0,
+          "end": 0,
+          "nodeType": "",
+          "opening": 0,
+          "list": null,
+          "closing": 0
+        }
+      },
+      "body": {
+        "children": [],
+        "start": 27,
+        "end": 55,
+        "nodeType": "BlockStatement",
+        "lbrace": 27,
+        "list": [
+          {
+            "children": [],
+            "start": 30,
+            "end": 53,
+            "nodeType": "ExpressionStatement",
+            "Expression": {
+              "children": [],
+              "start": 30,
+              "end": 53,
+              "nodeType": "CallExpression",
+              "function": {
+                "children": [],
+                "start": 30,
+                "end": 37,
+                "nodeType": "Identifier",
+                "NamePos": 30,
+                "Name": "println",
+                "Object": null
+              },
+              "lparen": 0,
+              "args": [
+                {
+                  "children": [],
+                  "start": 38,
+                  "end": 52,
+                  "nodeType": "BasicLiteral",
+                  "valuePos": 38,
+                  "kind": 9,
+                  "value": "\"Hello World!\""
+                }
+              ],
+              "ellipsis": 0,
+              "rparen": 0
+            }
+          }
+        ],
+        "rbrace": 54
+      }
+    }
+  ],
+  "fileStart": 1,
+  "fileEnd": 56,
+  "scope": {
+    "outer": null,
+    "objects": null
+  },
+  "imports": [],
+  "unresolved": [],
+  "comments": [],
+  "goVersion": ""
+}

@@ -1,11 +1,14 @@
 package main
 
-import "joern-go/parser"
+import (
+	"joern-go/parser"
+)
 
 func main() {
 
 	// projectDir := os.Args[1]
-	projectDir := "/home/hoangdao/Workspace/Go/GoParser"
-	outDir := "/home/hoangdao/Workspace/Go/GoParser/temp"
+	projectDir := "/home/hoangdao/Workspace/Go/GoParser/resources/test-project/simple"
+	outDir := "/home/hoangdao/Workspace/Go/GoParser/temp/simple"
 	parser.Parse(projectDir, outDir)
+
 }
