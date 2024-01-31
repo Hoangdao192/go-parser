@@ -4,11 +4,11 @@ package ast
 type Identifier struct {
 	Node
 	// identifier position
-	NamePos int `json:"NamePos"`
+	NamePos int `json:"namePos"`
 	// identifier name
-	Name string `json:"Name"`
+	Name string `json:"name"`
 	// denoted object; or nil
-	Object *Object `json:"Object"`
+	Object *Object `json:"object"`
 }
 
 func (x Identifier) Start() int {

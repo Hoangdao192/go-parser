@@ -1,1 +1,255 @@
-{"children":[],"start":1,"end":235,"doc":{"children":null,"start":0,"end":0,"Comments":null},"package":1,"name":{"children":[],"start":9,"end":13,"NamePos":9,"Name":"main","Object":null},"declarations":[{"children":[],"start":15,"end":44,"doc":{"children":null,"start":0,"end":0,"Comments":null},"tokenPosition":15,"token":75,"lparen":22,"specifications":[{"children":[],"start":25,"end":42,"doc":{"children":null,"start":0,"end":0,"Comments":null},"name":{"children":null,"start":0,"end":0,"NamePos":0,"Name":"","Object":null},"path":{"children":[],"start":25,"end":42,"valuePos":25,"kind":9,"value":"\"joern-go/parser\""},"comment":{"children":null,"start":0,"end":0,"Comments":null},"endPosition":0}],"rparen":43},{"children":[],"start":46,"end":235,"doc":{"children":null,"start":0,"end":0,"Comments":null},"receiver":{"children":null,"start":0,"end":0,"opening":0,"list":null,"closing":0},"name":{"children":[],"start":51,"end":55,"NamePos":51,"Name":"main","Object":null},"type":{"children":[],"start":46,"end":57,"Function":46,"TypeParams":{"children":null,"start":0,"end":0,"opening":0,"list":null,"closing":0},"Params":{"children":[],"start":55,"end":57,"opening":55,"list":[],"closing":56},"Results":{"children":null,"start":0,"end":0,"opening":0,"list":null,"closing":0}},"body":{"children":[],"start":58,"end":235,"lbrace":58,"list":[{"children":[],"start":91,"end":143,"lhs":[{"children":[],"start":91,"end":101,"NamePos":91,"Name":"projectDir","Object":null}],"tokenPos":102,"token":47,"rhs":[{"children":[],"start":105,"end":143,"valuePos":105,"kind":9,"value":"\"/home/hoangdao/Workspace/Go/GoParser\""}]},{"children":[],"start":145,"end":198,"lhs":[{"children":[],"start":145,"end":151,"NamePos":145,"Name":"outDir","Object":null}],"tokenPos":152,"token":47,"rhs":[{"children":[],"start":155,"end":198,"valuePos":155,"kind":9,"value":"\"/home/hoangdao/Workspace/Go/GoParser/temp\""}]},{"children":[],"start":200,"end":232,"Expression":{"children":[],"start":200,"end":232,"function":{"children":[],"start":200,"end":212,"expression":{"children":[],"start":200,"end":206,"NamePos":200,"Name":"parser","Object":null},"sel":{"children":[],"start":207,"end":212,"NamePos":207,"Name":"Parse","Object":null}},"lparen":0,"args":[{"children":[],"start":213,"end":223,"NamePos":213,"Name":"projectDir","Object":null},{"children":[],"start":225,"end":231,"NamePos":225,"Name":"outDir","Object":null}],"ellipsis":0,"rparen":0}}],"rbrace":234}}],"fileStart":1,"fileEnd":236,"scope":{"outer":null,"objects":null},"imports":[],"unresolved":[],"comments":[],"goVersion":""}
+{
+    "children": [],
+    "start": 1,
+    "end": 235,
+    "doc": {
+        "children": null,
+        "start": 0,
+        "end": 0,
+        "Comments": null
+    },
+    "package": 1,
+    "name": {
+        "children": [],
+        "start": 9,
+        "end": 13,
+        "NamePos": 9,
+        "Name": "main",
+        "Object": null
+    },
+    "declarations": [
+        {
+            "children": [],
+            "start": 15,
+            "end": 44,
+            "doc": {
+                "children": null,
+                "start": 0,
+                "end": 0,
+                "Comments": null
+            },
+            "tokenPosition": 15,
+            "token": 75,
+            "lparen": 22,
+            "specifications": [
+                {
+                    "children": [],
+                    "start": 25,
+                    "end": 42,
+                    "doc": {
+                        "children": null,
+                        "start": 0,
+                        "end": 0,
+                        "Comments": null
+                    },
+                    "name": {
+                        "children": null,
+                        "start": 0,
+                        "end": 0,
+                        "NamePos": 0,
+                        "Name": "",
+                        "Object": null
+                    },
+                    "path": {
+                        "children": [],
+                        "start": 25,
+                        "end": 42,
+                        "valuePos": 25,
+                        "kind": 9,
+                        "value": "\"joern-go/parser\""
+                    },
+                    "comment": {
+                        "children": null,
+                        "start": 0,
+                        "end": 0,
+                        "Comments": null
+                    },
+                    "endPosition": 0
+                }
+            ],
+            "rparen": 43
+        },
+        {
+            "children": [],
+            "start": 46,
+            "end": 235,
+            "doc": {
+                "children": null,
+                "start": 0,
+                "end": 0,
+                "Comments": null
+            },
+            "receiver": {
+                "children": null,
+                "start": 0,
+                "end": 0,
+                "opening": 0,
+                "list": null,
+                "closing": 0
+            },
+            "name": {
+                "children": [],
+                "start": 51,
+                "end": 55,
+                "NamePos": 51,
+                "Name": "main",
+                "Object": null
+            },
+            "type": {
+                "children": [],
+                "start": 46,
+                "end": 57,
+                "Function": 46,
+                "TypeParams": {
+                    "children": null,
+                    "start": 0,
+                    "end": 0,
+                    "opening": 0,
+                    "list": null,
+                    "closing": 0
+                },
+                "Params": {
+                    "children": [],
+                    "start": 55,
+                    "end": 57,
+                    "opening": 55,
+                    "list": [],
+                    "closing": 56
+                },
+                "Results": {
+                    "children": null,
+                    "start": 0,
+                    "end": 0,
+                    "opening": 0,
+                    "list": null,
+                    "closing": 0
+                }
+            },
+            "body": {
+                "children": [],
+                "start": 58,
+                "end": 235,
+                "lbrace": 58,
+                "list": [
+                    {
+                        "children": [],
+                        "start": 91,
+                        "end": 143,
+                        "lhs": [
+                            {
+                                "children": [],
+                                "start": 91,
+                                "end": 101,
+                                "NamePos": 91,
+                                "Name": "projectDir",
+                                "Object": null
+                            }
+                        ],
+                        "tokenPos": 102,
+                        "token": 47,
+                        "rhs": [
+                            {
+                                "children": [],
+                                "start": 105,
+                                "end": 143,
+                                "valuePos": 105,
+                                "kind": 9,
+                                "value": "\"/home/hoangdao/Workspace/Go/GoParser\""
+                            }
+                        ]
+                    },
+                    {
+                        "children": [],
+                        "start": 145,
+                        "end": 198,
+                        "lhs": [
+                            {
+                                "children": [],
+                                "start": 145,
+                                "end": 151,
+                                "NamePos": 145,
+                                "Name": "outDir",
+                                "Object": null
+                            }
+                        ],
+                        "tokenPos": 152,
+                        "token": 47,
+                        "rhs": [
+                            {
+                                "children": [],
+                                "start": 155,
+                                "end": 198,
+                                "valuePos": 155,
+                                "kind": 9,
+                                "value": "\"/home/hoangdao/Workspace/Go/GoParser/temp\""
+                            }
+                        ]
+                    },
+                    {
+                        "children": [],
+                        "start": 200,
+                        "end": 232,
+                        "Expression": {
+                            "children": [],
+                            "start": 200,
+                            "end": 232,
+                            "function": {
+                                "children": [],
+                                "start": 200,
+                                "end": 212,
+                                "expression": {
+                                    "children": [],
+                                    "start": 200,
+                                    "end": 206,
+                                    "NamePos": 200,
+                                    "Name": "parser",
+                                    "Object": null
+                                },
+                                "sel": {
+                                    "children": [],
+                                    "start": 207,
+                                    "end": 212,
+                                    "NamePos": 207,
+                                    "Name": "Parse",
+                                    "Object": null
+                                }
+                            },
+                            "lparen": 0,
+                            "args": [
+                                {
+                                    "children": [],
+                                    "start": 213,
+                                    "end": 223,
+                                    "NamePos": 213,
+                                    "Name": "projectDir",
+                                    "Object": null
+                                },
+                                {
+                                    "children": [],
+                                    "start": 225,
+                                    "end": 231,
+                                    "NamePos": 225,
+                                    "Name": "outDir",
+                                    "Object": null
+                                }
+                            ],
+                            "ellipsis": 0,
+                            "rparen": 0
+                        }
+                    }
+                ],
+                "rbrace": 234
+            }
+        }
+    ],
+    "fileStart": 1,
+    "fileEnd": 236,
+    "scope": {
+        "outer": null,
+        "objects": null
+    },
+    "imports": [],
+    "unresolved": [],
+    "comments": [],
+    "goVersion": ""
+}
