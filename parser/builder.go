@@ -1,7 +1,10 @@
 package parser
 
 import (
+	"bytes"
 	"go/ast"
+	"go/printer"
+	"go/token"
 	data "joern-go/parser/ast"
 )
 
@@ -235,6 +238,20 @@ func BuildNode(n ast.Node) data.Node {
 	case *ast.Package:
 		nodeType = "Package"
 	}
+
+	stringWriter := bytes.NewBufferString("")
+	err := printer.Fprint(stringWriter, token.NewFileSet(), n)
+
+	if err == nil {
+		return data.Node{
+			Children:      []data.INode{},
+			StartPosition: int(n.Pos()),
+			EndPosition:   int(n.End()),
+			Code:          stringWriter.String(),
+			NodeType:      nodeType,
+		}
+	}
+
 	return data.Node{
 		Children:      []data.INode{},
 		StartPosition: int(n.Pos()),
