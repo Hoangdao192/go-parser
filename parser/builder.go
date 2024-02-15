@@ -10,11 +10,7 @@ import (
 
 func BuildComment(comment *ast.Comment) data.Comment {
 	parsed := data.Comment{
-		Node: data.Node{
-			Children:      []data.INode{},
-			StartPosition: 0,
-			EndPosition:   0,
-		},
+		Node:  BuildNode(comment),
 		Slash: int(comment.Slash),
 		Text:  comment.Text,
 	}
@@ -25,11 +21,7 @@ func BuildComment(comment *ast.Comment) data.Comment {
 
 func BuildCommentGroup(commentGroup *ast.CommentGroup) data.CommentGroup {
 	parsed := data.CommentGroup{
-		Node: data.Node{
-			Children:      []data.INode{},
-			StartPosition: int(commentGroup.Pos()),
-			EndPosition:   int(commentGroup.End()),
-		},
+		Node:     BuildNode(commentGroup),
 		Comments: []*data.Comment{},
 	}
 	return parsed
@@ -37,21 +29,13 @@ func BuildCommentGroup(commentGroup *ast.CommentGroup) data.CommentGroup {
 
 func BuildField(field *ast.Field) data.Field {
 	return data.Field{
-		Node: data.Node{
-			Children:      []data.INode{},
-			StartPosition: int(field.Pos()),
-			EndPosition:   int(field.End()),
-		},
+		Node: BuildNode(field),
 	}
 }
 
 func BuildFieldList(fieldList *ast.FieldList) data.FieldList {
 	return data.FieldList{
-		Node: data.Node{
-			Children:      []data.INode{},
-			StartPosition: int(fieldList.Pos()),
-			EndPosition:   int(fieldList.End()),
-		},
+		Node:    BuildNode(fieldList),
 		Opening: int(fieldList.Opening),
 		List:    []data.Field{},
 		Closing: int(fieldList.Closing),
@@ -60,11 +44,7 @@ func BuildFieldList(fieldList *ast.FieldList) data.FieldList {
 
 func BuildBadExpression(badExpression *ast.BadExpr) data.BadExpression {
 	return data.BadExpression{
-		Node: data.Node{
-			Children:      []data.INode{},
-			StartPosition: int(badExpression.Pos()),
-			EndPosition:   int(badExpression.End()),
-		},
+		Node: BuildNode(badExpression),
 		From: int(badExpression.From),
 		To:   int(badExpression.To),
 	}
@@ -143,7 +123,7 @@ func BuildNode(n ast.Node) data.Node {
 	case *ast.FuncLit:
 		nodeType = "FunctionLiteral"
 	case *ast.CompositeLit:
-		nodeType = "CompositLiteral"
+		nodeType = "CompositeLiteral"
 	case *ast.ParenExpr:
 		nodeType = "ParenthesizedExpression"
 	case *ast.SelectorExpr:

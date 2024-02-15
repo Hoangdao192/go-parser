@@ -1,8 +1,8 @@
 {
   "children": [],
   "start": 1,
-  "end": 55,
-  "code": "package main\n\nfunc main() {\n\tprintln(\"Hello World!\")\n}\n",
+  "end": 51,
+  "code": "package main\n\nfunc getName() string {\n\treturn \"\"\n}\n",
   "nodeType": "File",
   "column": 0,
   "line": 0,
@@ -33,8 +33,8 @@
     {
       "children": [],
       "start": 15,
-      "end": 55,
-      "code": "func main() {\n\tprintln(\"Hello World!\")\n}",
+      "end": 51,
+      "code": "func getName() string {\n\treturn \"\"\n}",
       "nodeType": "FunctionDeclaration",
       "column": 0,
       "line": 0,
@@ -63,20 +63,20 @@
       "name": {
         "children": [],
         "start": 20,
-        "end": 24,
-        "code": "main",
+        "end": 27,
+        "code": "getName",
         "nodeType": "Identifier",
         "column": 0,
         "line": 0,
         "namePos": 20,
-        "name": "main",
+        "name": "getName",
         "object": null
       },
       "type": {
         "children": [],
         "start": 15,
-        "end": 26,
-        "code": "func()",
+        "end": 36,
+        "code": "func() string",
         "nodeType": "FunctionType",
         "column": 0,
         "line": 0,
@@ -95,93 +95,125 @@
         },
         "Params": {
           "children": [],
-          "start": 24,
-          "end": 26,
+          "start": 27,
+          "end": 29,
           "code": "",
-          "nodeType": "",
+          "nodeType": "FieldList",
           "column": 0,
           "line": 0,
-          "opening": 24,
+          "opening": 27,
           "list": [],
-          "closing": 25
+          "closing": 28
         },
         "Results": {
-          "children": null,
-          "start": 0,
-          "end": 0,
+          "children": [],
+          "start": 30,
+          "end": 36,
           "code": "",
-          "nodeType": "",
+          "nodeType": "FieldList",
           "column": 0,
           "line": 0,
           "opening": 0,
-          "list": null,
+          "list": [
+            {
+              "children": [],
+              "start": 30,
+              "end": 36,
+              "code": "",
+              "nodeType": "Field",
+              "column": 0,
+              "line": 0,
+              "doc": {
+                "children": null,
+                "start": 0,
+                "end": 0,
+                "code": "",
+                "nodeType": "",
+                "column": 0,
+                "line": 0,
+                "Comments": null
+              },
+              "names": null,
+              "type": {
+                "children": [],
+                "start": 30,
+                "end": 36,
+                "code": "string",
+                "nodeType": "Identifier",
+                "column": 0,
+                "line": 0,
+                "namePos": 30,
+                "name": "string",
+                "object": null
+              },
+              "tag": {
+                "children": null,
+                "start": 0,
+                "end": 0,
+                "code": "",
+                "nodeType": "",
+                "column": 0,
+                "line": 0,
+                "valuePos": 0,
+                "kind": 0,
+                "value": ""
+              },
+              "comment": {
+                "children": null,
+                "start": 0,
+                "end": 0,
+                "code": "",
+                "nodeType": "",
+                "column": 0,
+                "line": 0,
+                "Comments": null
+              }
+            }
+          ],
           "closing": 0
         }
       },
       "body": {
         "children": [],
-        "start": 27,
-        "end": 55,
-        "code": "{\n\tprintln(\"Hello World!\")\n}",
+        "start": 37,
+        "end": 51,
+        "code": "{\n\treturn \"\"\n}",
         "nodeType": "BlockStatement",
         "column": 0,
         "line": 0,
-        "lbrace": 27,
+        "lbrace": 37,
         "list": [
           {
             "children": [],
-            "start": 30,
-            "end": 53,
-            "code": "println(\"Hello World!\")",
-            "nodeType": "ExpressionStatement",
+            "start": 40,
+            "end": 49,
+            "code": "return \"\"",
+            "nodeType": "ReturnStatement",
             "column": 0,
             "line": 0,
-            "Expression": {
-              "children": [],
-              "start": 30,
-              "end": 53,
-              "code": "println(\"Hello World!\")",
-              "nodeType": "CallExpression",
-              "column": 0,
-              "line": 0,
-              "function": {
+            "return": 40,
+            "results": [
+              {
                 "children": [],
-                "start": 30,
-                "end": 37,
-                "code": "println",
-                "nodeType": "Identifier",
+                "start": 47,
+                "end": 49,
+                "code": "\"\"",
+                "nodeType": "BasicLiteral",
                 "column": 0,
                 "line": 0,
-                "namePos": 30,
-                "name": "println",
-                "object": null
-              },
-              "lparen": 0,
-              "args": [
-                {
-                  "children": [],
-                  "start": 38,
-                  "end": 52,
-                  "code": "\"Hello World!\"",
-                  "nodeType": "BasicLiteral",
-                  "column": 0,
-                  "line": 0,
-                  "valuePos": 38,
-                  "kind": 9,
-                  "value": "\"Hello World!\""
-                }
-              ],
-              "ellipsis": 0,
-              "rparen": 0
-            }
+                "valuePos": 47,
+                "kind": 9,
+                "value": "\"\""
+              }
+            ]
           }
         ],
-        "rbrace": 54
+        "rbrace": 50
       }
     }
   ],
   "fileStart": 1,
-  "fileEnd": 56,
+  "fileEnd": 52,
   "scope": {
     "outer": null,
     "objects": null
