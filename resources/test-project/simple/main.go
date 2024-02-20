@@ -1,5 +1,11 @@
 package main
 
-func getName() string {
-	return ""
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	fmt.Println("")
+	math.Abs(-10.0)
 }

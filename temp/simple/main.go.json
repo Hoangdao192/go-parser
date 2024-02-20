@@ -1,8 +1,8 @@
 {
   "children": [],
   "start": 1,
-  "end": 51,
-  "code": "package main\n\nfunc getName() string {\n\treturn \"\"\n}\n",
+  "end": 91,
+  "code": "package main\n\nimport (\n\t\"fmt\"\n\t\"math\"\n)\n\nfunc main() {\n\tfmt.Println(\"\")\n\tmath.Abs(-10.0)\n}\n",
   "nodeType": "File",
   "column": 0,
   "line": 0,
@@ -33,8 +33,141 @@
     {
       "children": [],
       "start": 15,
-      "end": 51,
-      "code": "func getName() string {\n\treturn \"\"\n}",
+      "end": 40,
+      "code": "import (\n\t\"fmt\"\n\t\"math\"\n)",
+      "nodeType": "GenericDeclaration",
+      "column": 0,
+      "line": 0,
+      "doc": {
+        "children": null,
+        "start": 0,
+        "end": 0,
+        "code": "",
+        "nodeType": "",
+        "column": 0,
+        "line": 0,
+        "Comments": null
+      },
+      "tokenPosition": 15,
+      "token": 75,
+      "lparen": 22,
+      "specifications": [
+        {
+          "children": [],
+          "start": 25,
+          "end": 30,
+          "code": "\"fmt\"",
+          "nodeType": "ImportSpecification",
+          "column": 0,
+          "line": 0,
+          "doc": {
+            "children": null,
+            "start": 0,
+            "end": 0,
+            "code": "",
+            "nodeType": "",
+            "column": 0,
+            "line": 0,
+            "Comments": null
+          },
+          "name": {
+            "children": null,
+            "start": 0,
+            "end": 0,
+            "code": "",
+            "nodeType": "",
+            "column": 0,
+            "line": 0,
+            "namePos": 0,
+            "name": "",
+            "object": null
+          },
+          "path": {
+            "children": [],
+            "start": 25,
+            "end": 30,
+            "code": "\"fmt\"",
+            "nodeType": "BasicLiteral",
+            "column": 0,
+            "line": 0,
+            "valuePos": 25,
+            "kind": 9,
+            "value": "\"fmt\""
+          },
+          "comment": {
+            "children": null,
+            "start": 0,
+            "end": 0,
+            "code": "",
+            "nodeType": "",
+            "column": 0,
+            "line": 0,
+            "Comments": null
+          },
+          "endPosition": 0
+        },
+        {
+          "children": [],
+          "start": 32,
+          "end": 38,
+          "code": "\"math\"",
+          "nodeType": "ImportSpecification",
+          "column": 0,
+          "line": 0,
+          "doc": {
+            "children": null,
+            "start": 0,
+            "end": 0,
+            "code": "",
+            "nodeType": "",
+            "column": 0,
+            "line": 0,
+            "Comments": null
+          },
+          "name": {
+            "children": null,
+            "start": 0,
+            "end": 0,
+            "code": "",
+            "nodeType": "",
+            "column": 0,
+            "line": 0,
+            "namePos": 0,
+            "name": "",
+            "object": null
+          },
+          "path": {
+            "children": [],
+            "start": 32,
+            "end": 38,
+            "code": "\"math\"",
+            "nodeType": "BasicLiteral",
+            "column": 0,
+            "line": 0,
+            "valuePos": 32,
+            "kind": 9,
+            "value": "\"math\""
+          },
+          "comment": {
+            "children": null,
+            "start": 0,
+            "end": 0,
+            "code": "",
+            "nodeType": "",
+            "column": 0,
+            "line": 0,
+            "Comments": null
+          },
+          "endPosition": 0
+        }
+      ],
+      "rparen": 39
+    },
+    {
+      "children": [],
+      "start": 42,
+      "end": 91,
+      "code": "func main() {\n\tfmt.Println(\"\")\n\tmath.Abs(-10.0)\n}",
       "nodeType": "FunctionDeclaration",
       "column": 0,
       "line": 0,
@@ -62,25 +195,25 @@
       },
       "name": {
         "children": [],
-        "start": 20,
-        "end": 27,
-        "code": "getName",
+        "start": 47,
+        "end": 51,
+        "code": "main",
         "nodeType": "Identifier",
         "column": 0,
         "line": 0,
-        "namePos": 20,
-        "name": "getName",
+        "namePos": 47,
+        "name": "main",
         "object": null
       },
       "type": {
         "children": [],
-        "start": 15,
-        "end": 36,
-        "code": "func() string",
+        "start": 42,
+        "end": 53,
+        "code": "func()",
         "nodeType": "FunctionType",
         "column": 0,
         "line": 0,
-        "Function": 15,
+        "Function": 42,
         "TypeParams": {
           "children": null,
           "start": 0,
@@ -95,125 +228,193 @@
         },
         "Params": {
           "children": [],
-          "start": 27,
-          "end": 29,
+          "start": 51,
+          "end": 53,
           "code": "",
           "nodeType": "FieldList",
           "column": 0,
           "line": 0,
-          "opening": 27,
+          "opening": 51,
           "list": [],
-          "closing": 28
+          "closing": 52
         },
         "Results": {
-          "children": [],
-          "start": 30,
-          "end": 36,
+          "children": null,
+          "start": 0,
+          "end": 0,
           "code": "",
-          "nodeType": "FieldList",
+          "nodeType": "",
           "column": 0,
           "line": 0,
           "opening": 0,
-          "list": [
-            {
-              "children": [],
-              "start": 30,
-              "end": 36,
-              "code": "",
-              "nodeType": "Field",
-              "column": 0,
-              "line": 0,
-              "doc": {
-                "children": null,
-                "start": 0,
-                "end": 0,
-                "code": "",
-                "nodeType": "",
-                "column": 0,
-                "line": 0,
-                "Comments": null
-              },
-              "names": null,
-              "type": {
-                "children": [],
-                "start": 30,
-                "end": 36,
-                "code": "string",
-                "nodeType": "Identifier",
-                "column": 0,
-                "line": 0,
-                "namePos": 30,
-                "name": "string",
-                "object": null
-              },
-              "tag": {
-                "children": null,
-                "start": 0,
-                "end": 0,
-                "code": "",
-                "nodeType": "",
-                "column": 0,
-                "line": 0,
-                "valuePos": 0,
-                "kind": 0,
-                "value": ""
-              },
-              "comment": {
-                "children": null,
-                "start": 0,
-                "end": 0,
-                "code": "",
-                "nodeType": "",
-                "column": 0,
-                "line": 0,
-                "Comments": null
-              }
-            }
-          ],
+          "list": null,
           "closing": 0
         }
       },
       "body": {
         "children": [],
-        "start": 37,
-        "end": 51,
-        "code": "{\n\treturn \"\"\n}",
+        "start": 54,
+        "end": 91,
+        "code": "{\n\tfmt.Println(\"\")\n\tmath.Abs(-10.0)\n}",
         "nodeType": "BlockStatement",
         "column": 0,
         "line": 0,
-        "lbrace": 37,
+        "lbrace": 54,
         "list": [
           {
             "children": [],
-            "start": 40,
-            "end": 49,
-            "code": "return \"\"",
-            "nodeType": "ReturnStatement",
+            "start": 57,
+            "end": 72,
+            "code": "fmt.Println(\"\")",
+            "nodeType": "ExpressionStatement",
             "column": 0,
             "line": 0,
-            "return": 40,
-            "results": [
-              {
+            "Expression": {
+              "children": [],
+              "start": 57,
+              "end": 72,
+              "code": "fmt.Println(\"\")",
+              "nodeType": "CallExpression",
+              "column": 0,
+              "line": 0,
+              "function": {
                 "children": [],
-                "start": 47,
-                "end": 49,
-                "code": "\"\"",
-                "nodeType": "BasicLiteral",
+                "start": 57,
+                "end": 68,
+                "code": "fmt.Println",
+                "nodeType": "SelectorExpression",
                 "column": 0,
                 "line": 0,
-                "valuePos": 47,
-                "kind": 9,
-                "value": "\"\""
-              }
-            ]
+                "expression": {
+                  "children": [],
+                  "start": 57,
+                  "end": 60,
+                  "code": "fmt",
+                  "nodeType": "Identifier",
+                  "column": 0,
+                  "line": 0,
+                  "namePos": 57,
+                  "name": "fmt",
+                  "object": null
+                },
+                "sel": {
+                  "children": [],
+                  "start": 61,
+                  "end": 68,
+                  "code": "Println",
+                  "nodeType": "Identifier",
+                  "column": 0,
+                  "line": 0,
+                  "namePos": 61,
+                  "name": "Println",
+                  "object": null
+                }
+              },
+              "lparen": 0,
+              "args": [
+                {
+                  "children": [],
+                  "start": 69,
+                  "end": 71,
+                  "code": "\"\"",
+                  "nodeType": "BasicLiteral",
+                  "column": 0,
+                  "line": 0,
+                  "valuePos": 69,
+                  "kind": 9,
+                  "value": "\"\""
+                }
+              ],
+              "ellipsis": 0,
+              "rparen": 0
+            }
+          },
+          {
+            "children": [],
+            "start": 74,
+            "end": 89,
+            "code": "math.Abs(-10.0)",
+            "nodeType": "ExpressionStatement",
+            "column": 0,
+            "line": 0,
+            "Expression": {
+              "children": [],
+              "start": 74,
+              "end": 89,
+              "code": "math.Abs(-10.0)",
+              "nodeType": "CallExpression",
+              "column": 0,
+              "line": 0,
+              "function": {
+                "children": [],
+                "start": 74,
+                "end": 82,
+                "code": "math.Abs",
+                "nodeType": "SelectorExpression",
+                "column": 0,
+                "line": 0,
+                "expression": {
+                  "children": [],
+                  "start": 74,
+                  "end": 78,
+                  "code": "math",
+                  "nodeType": "Identifier",
+                  "column": 0,
+                  "line": 0,
+                  "namePos": 74,
+                  "name": "math",
+                  "object": null
+                },
+                "sel": {
+                  "children": [],
+                  "start": 79,
+                  "end": 82,
+                  "code": "Abs",
+                  "nodeType": "Identifier",
+                  "column": 0,
+                  "line": 0,
+                  "namePos": 79,
+                  "name": "Abs",
+                  "object": null
+                }
+              },
+              "lparen": 0,
+              "args": [
+                {
+                  "children": [],
+                  "start": 83,
+                  "end": 88,
+                  "code": "-10.0",
+                  "nodeType": "UnaryExpression",
+                  "column": 0,
+                  "line": 0,
+                  "opPos": 83,
+                  "op": 13,
+                  "expression": {
+                    "children": [],
+                    "start": 84,
+                    "end": 88,
+                    "code": "10.0",
+                    "nodeType": "BasicLiteral",
+                    "column": 0,
+                    "line": 0,
+                    "valuePos": 84,
+                    "kind": 6,
+                    "value": "10.0"
+                  }
+                }
+              ],
+              "ellipsis": 0,
+              "rparen": 0
+            }
           }
         ],
-        "rbrace": 50
+        "rbrace": 90
       }
     }
   ],
   "fileStart": 1,
-  "fileEnd": 52,
+  "fileEnd": 92,
   "scope": {
     "outer": null,
     "objects": null
