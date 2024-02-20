@@ -9,12 +9,12 @@ type ChanelType struct {
 	Value     Expression `json:"value"`     // value type
 }
 
-func (x ChanelType) Start() int {
+func (x *ChanelType) Start() int {
 	return x.Begin
 }
 
-func (x ChanelType) End() int {
+func (x *ChanelType) End() int {
 	return x.Value.End()
 }
 
-func (ChanelType) ExpressionNode() {}
+func (*ChanelType) ExpressionNode() {}

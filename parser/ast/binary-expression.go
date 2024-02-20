@@ -9,12 +9,12 @@ type BinaryExpression struct {
 	RightExpression Expression `json:"rightExpression"` // right operand
 }
 
-func (x BinaryExpression) Start() int {
+func (x *BinaryExpression) Start() int {
 	return x.LeftExpression.Start()
 }
 
-func (x BinaryExpression) End() int {
+func (x *BinaryExpression) End() int {
 	return x.RightExpression.End()
 }
 
-func (BinaryExpression) ExpressionNode() {}
+func (*BinaryExpression) ExpressionNode() {}

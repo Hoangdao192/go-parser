@@ -8,11 +8,11 @@ type BlockStatement struct {
 	Rbrace int         `json:"rbrace"` // position of "}", if any (may be absent due to syntax error)
 }
 
-func (s BlockStatement) Start() int {
+func (s *BlockStatement) Start() int {
 	return s.Lbrace
 }
 
-func (s BlockStatement) End() int {
+func (s *BlockStatement) End() int {
 	if s.Rbrace != 0 {
 		return s.Rbrace + 1
 	}
@@ -22,4 +22,4 @@ func (s BlockStatement) End() int {
 	return s.Lbrace + 1
 }
 
-func (BlockStatement) StatementNode() {}
+func (*BlockStatement) StatementNode() {}

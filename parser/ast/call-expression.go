@@ -10,12 +10,12 @@ type CallExpression struct {
 	Rparen   int          `json:"rparen"`   // position of ")"
 }
 
-func (x CallExpression) End() int {
+func (x *CallExpression) End() int {
 	return x.Rparen + 1
 }
 
-func (x CallExpression) Start() int {
+func (x *CallExpression) Start() int {
 	return x.Function.Start()
 }
 
-func (CallExpression) ExpressionNode() {}
+func (*CallExpression) ExpressionNode() {}

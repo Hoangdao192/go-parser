@@ -7,12 +7,12 @@ type DeclarationStatement struct {
 	Declaration Declaration `json:"declaration"`
 }
 
-func (s DeclarationStatement) Start() int {
+func (s *DeclarationStatement) Start() int {
 	return s.Declaration.Start()
 }
 
-func (s DeclarationStatement) End() int {
+func (s *DeclarationStatement) End() int {
 	return s.Declaration.End()
 }
 
-func (DeclarationStatement) StatementNode() {}
+func (*DeclarationStatement) StatementNode() {}

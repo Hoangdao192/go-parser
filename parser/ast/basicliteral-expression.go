@@ -8,12 +8,12 @@ type BasicLiteral struct {
 	Value    string `json:"value"`    // literal string; e.g. 42, 0x7f, 3.14, 1e-9, 2.4i, 'a', '\x7f', "foo" or `\m\n\o`
 }
 
-func (x BasicLiteral) Start() int {
+func (x *BasicLiteral) Start() int {
 	return x.ValuePos
 }
 
-func (x BasicLiteral) End() int {
+func (x *BasicLiteral) End() int {
 	return x.ValuePos + len(x.Value)
 }
 
-func (BasicLiteral) ExpressionNode() {}
+func (*BasicLiteral) ExpressionNode() {}

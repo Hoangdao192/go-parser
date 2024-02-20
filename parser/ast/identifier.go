@@ -11,12 +11,12 @@ type Identifier struct {
 	Object *Object `json:"object"`
 }
 
-func (x Identifier) Start() int {
+func (x *Identifier) Start() int {
 	return x.NamePos
 }
 
-func (x Identifier) End() int {
+func (x *Identifier) End() int {
 	return x.NamePos + len(x.Name)
 }
 
-func (Identifier) ExpressionNode() {}
+func (*Identifier) ExpressionNode() {}

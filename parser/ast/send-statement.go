@@ -9,12 +9,12 @@ type SendStatement struct {
 	Value Expression `json:"Value"`
 }
 
-func (s SendStatement) Start() int {
+func (s *SendStatement) Start() int {
 	return s.Chanel.Start()
 }
 
-func (s SendStatement) End() int {
+func (s *SendStatement) End() int {
 	return s.Value.End()
 }
 
-func (SendStatement) StatementNode() {}
+func (*SendStatement) StatementNode() {}

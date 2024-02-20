@@ -8,12 +8,12 @@ type ArrayType struct {
 	Element     Expression `json:"element"`     // element type
 }
 
-func (x ArrayType) Start() int {
+func (x *ArrayType) Start() int {
 	return x.LeftBracket
 }
 
-func (x ArrayType) End() int {
+func (x *ArrayType) End() int {
 	return x.Element.End()
 }
 
-func (ArrayType) ExpressionNode() {}
+func (*ArrayType) ExpressionNode() {}

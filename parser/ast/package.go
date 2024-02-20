@@ -10,9 +10,9 @@ type Package struct {
 	Files   map[string]*File  `json:"files"`   // Go source files by filename
 }
 
-func (p Package) Start() int {
+func (p *Package) Start() int {
 	return 0
 }
-func (p Package) End() int {
+func (p *Package) End() int {
 	return 0
 }

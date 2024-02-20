@@ -8,12 +8,12 @@ type MapType struct {
 	Value Expression `json:"value"`
 }
 
-func (x MapType) Start() int {
+func (x *MapType) Start() int {
 	return x.Map
 }
 
-func (x MapType) End() int {
+func (x *MapType) End() int {
 	return x.Value.End()
 }
 
-func (MapType) ExpressionNode() {}
+func (*MapType) ExpressionNode() {}

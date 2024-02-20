@@ -8,12 +8,12 @@ type ParenthesizedExpression struct {
 	Rparen     int        `json:"rparen"`     // position of ")"
 }
 
-func (x ParenthesizedExpression) Start() int {
+func (x *ParenthesizedExpression) Start() int {
 	return x.Lparen
 }
 
-func (x ParenthesizedExpression) End() int {
+func (x *ParenthesizedExpression) End() int {
 	return x.Rparen + 1
 }
 
-func (ParenthesizedExpression) ExpressionNode() {}
+func (*ParenthesizedExpression) ExpressionNode() {}

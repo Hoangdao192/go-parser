@@ -9,12 +9,12 @@ type KeyValueExpression struct {
 	Value Expression `json:"value"`
 }
 
-func (x KeyValueExpression) Start() int {
+func (x *KeyValueExpression) Start() int {
 	return x.Key.Start()
 }
 
-func (x KeyValueExpression) End() int {
+func (x *KeyValueExpression) End() int {
 	return x.Value.End()
 }
 
-func (KeyValueExpression) ExpressionNode() {}
+func (*KeyValueExpression) ExpressionNode() {}

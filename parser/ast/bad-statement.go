@@ -9,12 +9,12 @@ type BadStatement struct {
 	To   int `json:"to"` // position range of bad statement
 }
 
-func (s BadStatement) Start() int {
+func (s *BadStatement) Start() int {
 	return s.From
 }
 
-func (s BadStatement) End() int {
+func (s *BadStatement) End() int {
 	return s.To
 }
 
-func (BadStatement) StatementNode() {}
+func (*BadStatement) StatementNode() {}

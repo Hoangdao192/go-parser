@@ -10,15 +10,15 @@ type CompositeLiteral struct {
 	Incomplete bool         `json:"incomplete"` // true if (source) expressions are missing in the Elements list
 }
 
-func (x CompositeLiteral) Start() int {
+func (x *CompositeLiteral) Start() int {
 	if x.Type != nil {
 		return x.Type.Start()
 	}
 	return x.Lbrace
 }
 
-func (x CompositeLiteral) End() int {
+func (x *CompositeLiteral) End() int {
 	return x.Rbrace + 1
 }
 
-func (CompositeLiteral) ExpressionNode() {}
+func (*CompositeLiteral) ExpressionNode() {}

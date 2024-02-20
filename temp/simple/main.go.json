@@ -6,16 +6,7 @@
   "nodeType": "File",
   "column": 0,
   "line": 0,
-  "doc": {
-    "children": null,
-    "start": 0,
-    "end": 0,
-    "code": "",
-    "nodeType": "",
-    "column": 0,
-    "line": 0,
-    "Comments": null
-  },
+  "doc": null,
   "package": 1,
   "name": {
     "children": [],
@@ -38,16 +29,7 @@
       "nodeType": "GenericDeclaration",
       "column": 0,
       "line": 0,
-      "doc": {
-        "children": null,
-        "start": 0,
-        "end": 0,
-        "code": "",
-        "nodeType": "",
-        "column": 0,
-        "line": 0,
-        "Comments": null
-      },
+      "doc": null,
       "tokenPosition": 15,
       "token": 75,
       "lparen": 22,
@@ -60,28 +42,8 @@
           "nodeType": "ImportSpecification",
           "column": 0,
           "line": 0,
-          "doc": {
-            "children": null,
-            "start": 0,
-            "end": 0,
-            "code": "",
-            "nodeType": "",
-            "column": 0,
-            "line": 0,
-            "Comments": null
-          },
-          "name": {
-            "children": null,
-            "start": 0,
-            "end": 0,
-            "code": "",
-            "nodeType": "",
-            "column": 0,
-            "line": 0,
-            "namePos": 0,
-            "name": "",
-            "object": null
-          },
+          "doc": null,
+          "name": null,
           "path": {
             "children": [],
             "start": 25,
@@ -94,16 +56,7 @@
             "kind": 9,
             "value": "\"fmt\""
           },
-          "comment": {
-            "children": null,
-            "start": 0,
-            "end": 0,
-            "code": "",
-            "nodeType": "",
-            "column": 0,
-            "line": 0,
-            "Comments": null
-          },
+          "comment": null,
           "endPosition": 0
         },
         {
@@ -114,28 +67,8 @@
           "nodeType": "ImportSpecification",
           "column": 0,
           "line": 0,
-          "doc": {
-            "children": null,
-            "start": 0,
-            "end": 0,
-            "code": "",
-            "nodeType": "",
-            "column": 0,
-            "line": 0,
-            "Comments": null
-          },
-          "name": {
-            "children": null,
-            "start": 0,
-            "end": 0,
-            "code": "",
-            "nodeType": "",
-            "column": 0,
-            "line": 0,
-            "namePos": 0,
-            "name": "",
-            "object": null
-          },
+          "doc": null,
+          "name": null,
           "path": {
             "children": [],
             "start": 32,
@@ -148,16 +81,7 @@
             "kind": 9,
             "value": "\"math\""
           },
-          "comment": {
-            "children": null,
-            "start": 0,
-            "end": 0,
-            "code": "",
-            "nodeType": "",
-            "column": 0,
-            "line": 0,
-            "Comments": null
-          },
+          "comment": null,
           "endPosition": 0
         }
       ],
@@ -171,28 +95,8 @@
       "nodeType": "FunctionDeclaration",
       "column": 0,
       "line": 0,
-      "doc": {
-        "children": null,
-        "start": 0,
-        "end": 0,
-        "code": "",
-        "nodeType": "",
-        "column": 0,
-        "line": 0,
-        "Comments": null
-      },
-      "receiver": {
-        "children": null,
-        "start": 0,
-        "end": 0,
-        "code": "",
-        "nodeType": "",
-        "column": 0,
-        "line": 0,
-        "opening": 0,
-        "list": null,
-        "closing": 0
-      },
+      "doc": null,
+      "receiver": null,
       "name": {
         "children": [],
         "start": 47,
@@ -214,18 +118,7 @@
         "column": 0,
         "line": 0,
         "Function": 42,
-        "TypeParams": {
-          "children": null,
-          "start": 0,
-          "end": 0,
-          "code": "",
-          "nodeType": "",
-          "column": 0,
-          "line": 0,
-          "opening": 0,
-          "list": null,
-          "closing": 0
-        },
+        "TypeParams": null,
         "Params": {
           "children": [],
           "start": 51,
@@ -238,18 +131,7 @@
           "list": [],
           "closing": 52
         },
-        "Results": {
-          "children": null,
-          "start": 0,
-          "end": 0,
-          "code": "",
-          "nodeType": "",
-          "column": 0,
-          "line": 0,
-          "opening": 0,
-          "list": null,
-          "closing": 0
-        }
+        "Results": null
       },
       "body": {
         "children": [],

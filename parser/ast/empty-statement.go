@@ -11,15 +11,15 @@ type EmptyStatement struct {
 	Implicit bool `json:"implicit"`
 }
 
-func (s EmptyStatement) Start() int {
+func (s *EmptyStatement) Start() int {
 	return s.Semicolon
 }
 
-func (s EmptyStatement) End() int {
+func (s *EmptyStatement) End() int {
 	if s.Implicit {
 		return s.Semicolon
 	}
 	return s.Semicolon + 1 /* len(";") */
 }
 
-func (EmptyStatement) StatementNode() {}
+func (*EmptyStatement) StatementNode() {}

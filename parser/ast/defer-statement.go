@@ -3,16 +3,16 @@ package ast
 // A DeferStatement node represents a defer statement.
 type DeferStatement struct {
 	Node
-	Defer int            `json:"defer"` // position of "defer" keyword
-	Call  CallExpression `json:"call"`
+	Defer int             `json:"defer"` // position of "defer" keyword
+	Call  *CallExpression `json:"call"`
 }
 
-func (s DeferStatement) Start() int {
+func (s *DeferStatement) Start() int {
 	return s.Defer
 }
 
-func (s DeferStatement) End() int {
+func (s *DeferStatement) End() int {
 	return s.Call.End()
 }
 
-func (DeferStatement) StatementNode() {}
+func (*DeferStatement) StatementNode() {}

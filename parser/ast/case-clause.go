@@ -9,15 +9,15 @@ type CaseClause struct {
 	Body  []Statement  `json:"body"`  // statement list; or nil
 }
 
-func (s CaseClause) Start() int {
+func (s *CaseClause) Start() int {
 	return s.Case
 }
 
-func (s CaseClause) End() int {
+func (s *CaseClause) End() int {
 	if n := len(s.Body); n > 0 {
 		return s.Body[n-1].End()
 	}
 	return s.Colon + 1
 }
 
-func (CaseClause) StatementNode() {}
+func (*CaseClause) StatementNode() {}

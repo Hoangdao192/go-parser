@@ -9,12 +9,12 @@ type BadDeclaration struct {
 	To   int `json:"to"`
 }
 
-func (d BadDeclaration) Start() int {
+func (d *BadDeclaration) Start() int {
 	return d.From
 }
 
-func (d BadDeclaration) End() int {
+func (d *BadDeclaration) End() int {
 	return d.To
 }
 
-func (BadDeclaration) declarationNode() {}
+func (*BadDeclaration) declarationNode() {}

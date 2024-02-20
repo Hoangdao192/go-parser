@@ -9,12 +9,12 @@ type BadExpression struct {
 	To   int `json:"to"`
 }
 
-func (x BadExpression) Start() int {
+func (x *BadExpression) Start() int {
 	return x.From
 }
 
-func (x BadExpression) End() int {
+func (x *BadExpression) End() int {
 	return x.To
 }
 
-func (x BadExpression) ExpressionNode() {}
+func (x *BadExpression) ExpressionNode() {}

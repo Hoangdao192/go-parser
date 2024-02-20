@@ -9,12 +9,12 @@ type UnaryExpression struct {
 	Expression Expression `json:"expression"` // operand
 }
 
-func (x UnaryExpression) Start() int {
+func (x *UnaryExpression) Start() int {
 	return x.OpPos
 }
 
-func (x UnaryExpression) End() int {
+func (x *UnaryExpression) End() int {
 	return x.Expression.End()
 }
 
-func (UnaryExpression) ExpressionNode() {}
+func (*UnaryExpression) ExpressionNode() {}

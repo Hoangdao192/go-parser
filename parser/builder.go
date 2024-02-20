@@ -37,7 +37,7 @@ func BuildFieldList(fieldList *ast.FieldList) data.FieldList {
 	return data.FieldList{
 		Node:    BuildNode(fieldList),
 		Opening: int(fieldList.Opening),
-		List:    []data.Field{},
+		List:    []*data.Field{},
 		Closing: int(fieldList.Closing),
 	}
 }

@@ -7,9 +7,9 @@ type CommentGroup struct {
 	Comments []*Comment // len(Comments) > 0
 }
 
-func (g CommentGroup) Start() int {
+func (g *CommentGroup) Start() int {
 	return g.Comments[0].Start()
 }
-func (g CommentGroup) End() int {
+func (g *CommentGroup) End() int {
 	return g.Comments[len(g.Comments)-1].End()
 }

@@ -12,7 +12,7 @@ package ast
 //	token.VAR     *ValueSpec
 type GenericDeclaration struct {
 	Node
-	Doc            CommentGroup    `json:"doc"`           // associated documentation; or nil
+	Doc            *CommentGroup   `json:"doc"`           // associated documentation; or nil
 	TokenPosition  int             `json:"tokenPosition"` // position of Token
 	Token          int             `json:"token"`         // IMPORT, CONST, TYPE, or VAR
 	Lparen         int             `json:"lparen"`        // position of '(', if any
@@ -20,15 +20,15 @@ type GenericDeclaration struct {
 	Rparen         int             `json:"rparen"` // position of ')', if any
 }
 
-func (d GenericDeclaration) Start() int {
+func (d *GenericDeclaration) Start() int {
 	return d.TokenPosition
 }
 
-func (d GenericDeclaration) End() int {
+func (d *GenericDeclaration) End() int {
 	if d.Rparen != 0 {
 		return d.Rparen + 1
 	}
 	return d.Specifications[0].End()
 }
 
-func (GenericDeclaration) declarationNode() {}
+func (*GenericDeclaration) declarationNode() {}

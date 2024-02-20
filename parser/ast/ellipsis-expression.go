@@ -8,15 +8,15 @@ type Ellipsis struct {
 	Element  Expression `json:"element"`  // ellipsis element type (parameter lists only); or nil
 }
 
-func (x Ellipsis) Start() int {
+func (x *Ellipsis) Start() int {
 	return x.Ellipsis
 }
 
-func (x Ellipsis) End() int {
+func (x *Ellipsis) End() int {
 	if x.Element != nil {
 		return x.Element.End()
 	}
 	return x.Ellipsis + 3 // len("...")
 }
 
-func (Ellipsis) ExpressionNode() {}
+func (*Ellipsis) ExpressionNode() {}

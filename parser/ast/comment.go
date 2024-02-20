@@ -12,9 +12,9 @@ type Comment struct {
 	Text  string // comment text (excluding '\n' for //-style comments)
 }
 
-func (c Comment) Start() int {
+func (c *Comment) Start() int {
 	return c.Slash
 }
-func (c Comment) End() int {
+func (c *Comment) End() int {
 	return c.Slash + len(c.Text)
 }

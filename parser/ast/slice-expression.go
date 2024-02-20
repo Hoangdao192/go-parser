@@ -12,12 +12,12 @@ type SliceExpression struct {
 	RightBracket int        `json:"rightBracket"` // position of "]"
 }
 
-func (x SliceExpression) Start() int {
+func (x *SliceExpression) Start() int {
 	return x.Expression.Start()
 }
 
-func (x SliceExpression) End() int {
+func (x *SliceExpression) End() int {
 	return x.RightBracket + 1
 }
 
-func (SliceExpression) ExpressionNode() {}
+func (*SliceExpression) ExpressionNode() {}

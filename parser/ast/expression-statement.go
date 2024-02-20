@@ -7,12 +7,12 @@ type ExpressionStatement struct {
 	Expression Expression `json:"Expression"`
 }
 
-func (s ExpressionStatement) Start() int {
+func (s *ExpressionStatement) Start() int {
 	return s.Expression.Start()
 }
 
-func (s ExpressionStatement) End() int {
+func (s *ExpressionStatement) End() int {
 	return s.Expression.End()
 }
 
-func (ExpressionStatement) StatementNode() {}
+func (*ExpressionStatement) StatementNode() {}

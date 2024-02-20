@@ -10,12 +10,12 @@ type AssignStatement struct {
 	Rhs      []Expression `json:"rhs"`
 }
 
-func (s AssignStatement) Start() int {
+func (s *AssignStatement) Start() int {
 	return s.Lhs[0].Start()
 }
 
-func (s AssignStatement) End() int {
+func (s *AssignStatement) End() int {
 	return s.Rhs[len(s.Rhs)-1].End()
 }
 
-func (AssignStatement) StatementNode() {}
+func (*AssignStatement) StatementNode() {}

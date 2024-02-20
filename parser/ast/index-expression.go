@@ -9,12 +9,12 @@ type IndexExpression struct {
 	RightBracket int        `json:"rightBracket"` // position of "]"
 }
 
-func (x IndexExpression) Start() int {
+func (x *IndexExpression) Start() int {
 	return x.Expression.Start()
 }
 
-func (x IndexExpression) End() int {
+func (x *IndexExpression) End() int {
 	return x.RightBracket + 1
 }
 
-func (IndexExpression) ExpressionNode() {}
+func (*IndexExpression) ExpressionNode() {}
