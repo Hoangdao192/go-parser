@@ -2,10 +2,13 @@ package parser
 
 import (
 	"bytes"
+	"fmt"
+	"github.com/google/uuid"
 	"go/ast"
 	"go/printer"
 	"go/token"
 	data "joern-go/parser/ast"
+	"time"
 )
 
 func BuildComment(comment *ast.Comment) data.Comment {
@@ -222,8 +225,16 @@ func BuildNode(n ast.Node) data.Node {
 	stringWriter := bytes.NewBufferString("")
 	err := printer.Fprint(stringWriter, token.NewFileSet(), n)
 
+	var id, uuidErr = uuid.NewUUID()
+	var idAsString = fmt.Sprintf("%v", time.Now().Unix())
+
+	if uuidErr == nil {
+		idAsString = id.String()
+	}
+
 	if err == nil {
 		return data.Node{
+			Id:            idAsString,
 			Children:      []data.INode{},
 			StartPosition: int(n.Pos()),
 			EndPosition:   int(n.End()),
@@ -233,6 +244,7 @@ func BuildNode(n ast.Node) data.Node {
 	}
 
 	return data.Node{
+		Id:            idAsString,
 		Children:      []data.INode{},
 		StartPosition: int(n.Pos()),
 		EndPosition:   int(n.End()),

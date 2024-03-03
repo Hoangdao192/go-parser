@@ -30,7 +30,8 @@ type File struct {
 	Imports      []*ImportSpecification `json:"imports"`      // imports in this file
 	Unresolved   []*Identifier          `json:"unresolved"`   // unresolved identifiers in this file
 	Comments     []*CommentGroup        `json:"comments"`     // list of all comments in the source file
-	GoVersion    string                 `json:"goVersion"`    // minimum Go version required by //go:build or // +build directives
+	FilePath     string                 `json:"filePath"`
+	GoVersion    string                 `json:"goVersion"` // minimum Go version required by //go:build or // +build directives
 }
 
 // Start returns the position of the package declaration.
