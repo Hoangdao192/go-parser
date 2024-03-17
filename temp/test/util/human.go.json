@@ -1,0 +1,160 @@
+{
+  "children": [],
+  "id": "eb634ae7-deac-11ee-ae14-e4aaeaf8aebf",
+  "start": 1,
+  "end": 49,
+  "code": "package util\n\ntype Name struct{ name *string }\n",
+  "nodeType": "File",
+  "column": 0,
+  "line": 0,
+  "doc": null,
+  "package": 1,
+  "name": {
+    "children": [],
+    "id": "eb634b5f-deac-11ee-ae14-e4aaeaf8aebf",
+    "start": 9,
+    "end": 13,
+    "code": "util",
+    "nodeType": "Identifier",
+    "column": 0,
+    "line": 0,
+    "namePos": 9,
+    "name": "util",
+    "object": null
+  },
+  "declarations": [
+    {
+      "children": [],
+      "id": "eb634c3e-deac-11ee-ae14-e4aaeaf8aebf",
+      "start": 15,
+      "end": 49,
+      "code": "type Name struct{ name *string }",
+      "nodeType": "GenericDeclaration",
+      "column": 0,
+      "line": 0,
+      "doc": null,
+      "tokenPosition": 15,
+      "token": 84,
+      "lparen": 0,
+      "specifications": [
+        {
+          "children": [],
+          "id": "eb634ce2-deac-11ee-ae14-e4aaeaf8aebf",
+          "start": 20,
+          "end": 49,
+          "code": "Name struct{ name *string }",
+          "nodeType": "TypeSpecification",
+          "column": 0,
+          "line": 0,
+          "doc": null,
+          "name": {
+            "children": [],
+            "id": "eb634d32-deac-11ee-ae14-e4aaeaf8aebf",
+            "start": 20,
+            "end": 24,
+            "code": "Name",
+            "nodeType": "Identifier",
+            "column": 0,
+            "line": 0,
+            "namePos": 20,
+            "name": "Name",
+            "object": null
+          },
+          "typeParams": null,
+          "assign": 0,
+          "type": {
+            "children": [],
+            "id": "eb634d9f-deac-11ee-ae14-e4aaeaf8aebf",
+            "start": 25,
+            "end": 49,
+            "code": "struct{ name *string }",
+            "nodeType": "StructType",
+            "column": 0,
+            "line": 0,
+            "struct": 25,
+            "fields": {
+              "children": [],
+              "id": "eb634e0e-deac-11ee-ae14-e4aaeaf8aebf",
+              "start": 32,
+              "end": 49,
+              "code": "",
+              "nodeType": "FieldList",
+              "column": 0,
+              "line": 0,
+              "opening": 32,
+              "list": [
+                {
+                  "children": [],
+                  "id": "eb634ee3-deac-11ee-ae14-e4aaeaf8aebf",
+                  "start": 35,
+                  "end": 47,
+                  "code": "",
+                  "nodeType": "Field",
+                  "column": 0,
+                  "line": 0,
+                  "doc": null,
+                  "names": [
+                    {
+                      "children": [],
+                      "id": "eb635395-deac-11ee-ae14-e4aaeaf8aebf",
+                      "start": 35,
+                      "end": 39,
+                      "code": "name",
+                      "nodeType": "Identifier",
+                      "column": 0,
+                      "line": 0,
+                      "namePos": 35,
+                      "name": "name",
+                      "object": null
+                    }
+                  ],
+                  "type": {
+                    "children": [],
+                    "id": "eb635468-deac-11ee-ae14-e4aaeaf8aebf",
+                    "start": 40,
+                    "end": 47,
+                    "code": "*string",
+                    "nodeType": "StarExpression",
+                    "column": 0,
+                    "line": 0,
+                    "star": 40,
+                    "expression": {
+                      "children": [],
+                      "id": "eb635503-deac-11ee-ae14-e4aaeaf8aebf",
+                      "start": 41,
+                      "end": 47,
+                      "code": "string",
+                      "nodeType": "Identifier",
+                      "column": 0,
+                      "line": 0,
+                      "namePos": 41,
+                      "name": "string",
+                      "object": null
+                    }
+                  },
+                  "tag": null,
+                  "comment": null
+                }
+              ],
+              "closing": 48
+            },
+            "incomplete": false
+          },
+          "comment": null
+        }
+      ],
+      "rparen": 0
+    }
+  ],
+  "fileStart": 1,
+  "fileEnd": 50,
+  "scope": {
+    "outer": null,
+    "objects": null
+  },
+  "imports": [],
+  "unresolved": [],
+  "comments": [],
+  "filePath": "/home/hoangdao/Workspace/Go/Test/util/human.go",
+  "goVersion": ""
+}

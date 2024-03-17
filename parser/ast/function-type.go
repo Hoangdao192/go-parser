@@ -2,10 +2,10 @@ package ast
 
 type FunctionType struct {
 	Node
-	Function   int        // position of "func" keyword (token.NoPos if there is no "func")
-	TypeParams *FieldList // type parameters; or nil
-	Params     *FieldList // (incoming) parameters; non-nil
-	Results    *FieldList // (outgoing) results; or nil
+	Function   int        `json:"function"`   // position of "func" keyword (token.NoPos if there is no "func")
+	TypeParams *FieldList `json:"typeParams"` // type parameters; or nil
+	Params     *FieldList `json:"params"`     // (incoming) parameters; non-nil
+	Results    *FieldList `json:"results"`    // (outgoing) results; or nil
 }
 
 func (x *FunctionType) Start() int {
