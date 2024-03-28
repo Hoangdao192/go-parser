@@ -1,9 +1,9 @@
 {
     "children": [],
-    "id": "c609711d-e40b-11ee-9117-e4aaeaf8aebf",
+    "id": "50b39a42-e469-11ee-bea0-e4aaeaf8aebf",
     "start": 1,
-    "end": 102,
-    "code": "package main\n\nfunc main() {\n\tvar result = sum(1, 2)\n}\nfunc sum(a int, b int) int {\n\treturn a + b\n}\n",
+    "end": 63,
+    "code": "package main\n\nfunc main() {\n\tif true {\n\t} else if false {\n\t}\n}\n",
     "nodeType": "File",
     "column": 0,
     "line": 0,
@@ -11,7 +11,7 @@
     "package": 1,
     "name": {
         "children": [],
-        "id": "c60981e6-e40b-11ee-9117-e4aaeaf8aebf",
+        "id": "50b3adfc-e469-11ee-bea0-e4aaeaf8aebf",
         "start": 9,
         "end": 13,
         "code": "main",
@@ -25,10 +25,10 @@
     "declarations": [
         {
             "children": [],
-            "id": "c6098497-e40b-11ee-9117-e4aaeaf8aebf",
+            "id": "50b3b0cc-e469-11ee-bea0-e4aaeaf8aebf",
             "start": 15,
-            "end": 56,
-            "code": "func main() {\n\tvar result = sum(1, 2)\n}",
+            "end": 63,
+            "code": "func main() {\n\tif true {\n\t} else if false {\n\t}\n}",
             "nodeType": "FunctionDeclaration",
             "column": 0,
             "line": 0,
@@ -36,7 +36,7 @@
             "receiver": null,
             "name": {
                 "children": [],
-                "id": "c609850c-e40b-11ee-9117-e4aaeaf8aebf",
+                "id": "50b3b18f-e469-11ee-bea0-e4aaeaf8aebf",
                 "start": 20,
                 "end": 24,
                 "code": "main",
@@ -49,18 +49,18 @@
             },
             "type": {
                 "children": [],
-                "id": "c609858c-e40b-11ee-9117-e4aaeaf8aebf",
+                "id": "50b3b237-e469-11ee-bea0-e4aaeaf8aebf",
                 "start": 15,
                 "end": 26,
                 "code": "func()",
                 "nodeType": "FunctionType",
                 "column": 0,
                 "line": 0,
-                "Function": 15,
-                "TypeParams": null,
-                "Params": {
+                "function": 15,
+                "typeParams": null,
+                "params": {
                     "children": [],
-                    "id": "c6098ace-e40b-11ee-9117-e4aaeaf8aebf",
+                    "id": "50b3b6ea-e469-11ee-bea0-e4aaeaf8aebf",
                     "start": 24,
                     "end": 26,
                     "code": "",
@@ -71,14 +71,14 @@
                     "list": [],
                     "closing": 25
                 },
-                "Results": null
+                "results": null
             },
             "body": {
                 "children": [],
-                "id": "c6098c88-e40b-11ee-9117-e4aaeaf8aebf",
+                "id": "50b3b83c-e469-11ee-bea0-e4aaeaf8aebf",
                 "start": 27,
-                "end": 56,
-                "code": "{\n\tvar result = sum(1, 2)\n}",
+                "end": 63,
+                "code": "{\n\tif true {\n\t} else if false {\n\t}\n}",
                 "nodeType": "BlockStatement",
                 "column": 0,
                 "line": 0,
@@ -86,361 +86,88 @@
                 "list": [
                     {
                         "children": [],
-                        "id": "c6098de5-e40b-11ee-9117-e4aaeaf8aebf",
-                        "start": 31,
-                        "end": 53,
-                        "code": "var result = sum(1, 2)",
-                        "nodeType": "DeclarationStatement",
+                        "id": "50b3b947-e469-11ee-bea0-e4aaeaf8aebf",
+                        "start": 30,
+                        "end": 61,
+                        "code": "if true {\n} else if false {\n}",
+                        "nodeType": "IfStatement",
                         "column": 0,
                         "line": 0,
-                        "declaration": {
+                        "if": 30,
+                        "initialization": null,
+                        "condition": {
                             "children": [],
-                            "id": "c6098f82-e40b-11ee-9117-e4aaeaf8aebf",
-                            "start": 31,
-                            "end": 53,
-                            "code": "var result = sum(1, 2)",
-                            "nodeType": "GenericDeclaration",
+                            "id": "50b3ba67-e469-11ee-bea0-e4aaeaf8aebf",
+                            "start": 33,
+                            "end": 37,
+                            "code": "true",
+                            "nodeType": "Identifier",
                             "column": 0,
                             "line": 0,
-                            "doc": null,
-                            "tokenPosition": 31,
-                            "token": 85,
-                            "lparen": 0,
-                            "specifications": [
-                                {
-                                    "children": [],
-                                    "id": "c60990f9-e40b-11ee-9117-e4aaeaf8aebf",
-                                    "start": 35,
-                                    "end": 53,
-                                    "code": "result = sum(1, 2)",
-                                    "nodeType": "ValueSpecification",
-                                    "column": 0,
-                                    "line": 0,
-                                    "doc": null,
-                                    "names": [
-                                        {
-                                            "children": [],
-                                            "id": "c60995cd-e40b-11ee-9117-e4aaeaf8aebf",
-                                            "start": 35,
-                                            "end": 41,
-                                            "code": "result",
-                                            "nodeType": "Identifier",
-                                            "column": 0,
-                                            "line": 0,
-                                            "namePos": 35,
-                                            "name": "result",
-                                            "object": null
-                                        }
-                                    ],
-                                    "type": null,
-                                    "values": [
-                                        {
-                                            "children": [],
-                                            "id": "c6099682-e40b-11ee-9117-e4aaeaf8aebf",
-                                            "start": 44,
-                                            "end": 53,
-                                            "code": "sum(1, 2)",
-                                            "nodeType": "CallExpression",
-                                            "column": 0,
-                                            "line": 0,
-                                            "function": {
-                                                "children": [],
-                                                "id": "c60996f9-e40b-11ee-9117-e4aaeaf8aebf",
-                                                "start": 44,
-                                                "end": 47,
-                                                "code": "sum",
-                                                "nodeType": "Identifier",
-                                                "column": 0,
-                                                "line": 0,
-                                                "namePos": 44,
-                                                "name": "sum",
-                                                "object": null
-                                            },
-                                            "lparen": 0,
-                                            "args": [
-                                                {
-                                                    "children": [],
-                                                    "id": "c6099787-e40b-11ee-9117-e4aaeaf8aebf",
-                                                    "start": 48,
-                                                    "end": 49,
-                                                    "code": "1",
-                                                    "nodeType": "BasicLiteral",
-                                                    "column": 0,
-                                                    "line": 0,
-                                                    "valuePos": 48,
-                                                    "kind": 5,
-                                                    "value": "1"
-                                                },
-                                                {
-                                                    "children": [],
-                                                    "id": "c60997f1-e40b-11ee-9117-e4aaeaf8aebf",
-                                                    "start": 51,
-                                                    "end": 52,
-                                                    "code": "2",
-                                                    "nodeType": "BasicLiteral",
-                                                    "column": 0,
-                                                    "line": 0,
-                                                    "valuePos": 51,
-                                                    "kind": 5,
-                                                    "value": "2"
-                                                }
-                                            ],
-                                            "ellipsis": 0,
-                                            "rparen": 0
-                                        }
-                                    ],
-                                    "comment": null
-                                }
-                            ],
-                            "rparen": 0
-                        }
-                    }
-                ],
-                "rbrace": 55
-            }
-        },
-        {
-            "children": [],
-            "id": "c609992e-e40b-11ee-9117-e4aaeaf8aebf",
-            "start": 58,
-            "end": 102,
-            "code": "func sum(a int, b int) int {\n\treturn a + b\n}",
-            "nodeType": "FunctionDeclaration",
-            "column": 0,
-            "line": 0,
-            "doc": null,
-            "receiver": null,
-            "name": {
-                "children": [],
-                "id": "c6099993-e40b-11ee-9117-e4aaeaf8aebf",
-                "start": 63,
-                "end": 66,
-                "code": "sum",
-                "nodeType": "Identifier",
-                "column": 0,
-                "line": 0,
-                "namePos": 63,
-                "name": "sum",
-                "object": null
-            },
-            "type": {
-                "children": [],
-                "id": "c6099a2a-e40b-11ee-9117-e4aaeaf8aebf",
-                "start": 58,
-                "end": 84,
-                "code": "func(a int, b int) int",
-                "nodeType": "FunctionType",
-                "column": 0,
-                "line": 0,
-                "Function": 58,
-                "TypeParams": null,
-                "Params": {
-                    "children": [],
-                    "id": "c6099a8d-e40b-11ee-9117-e4aaeaf8aebf",
-                    "start": 66,
-                    "end": 80,
-                    "code": "",
-                    "nodeType": "FieldList",
-                    "column": 0,
-                    "line": 0,
-                    "opening": 66,
-                    "list": [
-                        {
-                            "children": [],
-                            "id": "c6099af6-e40b-11ee-9117-e4aaeaf8aebf",
-                            "start": 67,
-                            "end": 72,
-                            "code": "",
-                            "nodeType": "Field",
-                            "column": 0,
-                            "line": 0,
-                            "doc": null,
-                            "names": [
-                                {
-                                    "children": [],
-                                    "id": "c6099b57-e40b-11ee-9117-e4aaeaf8aebf",
-                                    "start": 67,
-                                    "end": 68,
-                                    "code": "a",
-                                    "nodeType": "Identifier",
-                                    "column": 0,
-                                    "line": 0,
-                                    "namePos": 67,
-                                    "name": "a",
-                                    "object": null
-                                }
-                            ],
-                            "type": {
-                                "children": [],
-                                "id": "c6099bb4-e40b-11ee-9117-e4aaeaf8aebf",
-                                "start": 69,
-                                "end": 72,
-                                "code": "int",
-                                "nodeType": "Identifier",
-                                "column": 0,
-                                "line": 0,
-                                "namePos": 69,
-                                "name": "int",
-                                "object": null
-                            },
-                            "tag": null,
-                            "comment": null
+                            "namePos": 33,
+                            "name": "true",
+                            "object": null
                         },
-                        {
+                        "body": {
                             "children": [],
-                            "id": "c6099c15-e40b-11ee-9117-e4aaeaf8aebf",
-                            "start": 74,
-                            "end": 79,
-                            "code": "",
-                            "nodeType": "Field",
+                            "id": "50b3bb0d-e469-11ee-bea0-e4aaeaf8aebf",
+                            "start": 38,
+                            "end": 42,
+                            "code": "{\n}",
+                            "nodeType": "BlockStatement",
                             "column": 0,
                             "line": 0,
-                            "doc": null,
-                            "names": [
-                                {
-                                    "children": [],
-                                    "id": "c6099ca8-e40b-11ee-9117-e4aaeaf8aebf",
-                                    "start": 74,
-                                    "end": 75,
-                                    "code": "b",
-                                    "nodeType": "Identifier",
-                                    "column": 0,
-                                    "line": 0,
-                                    "namePos": 74,
-                                    "name": "b",
-                                    "object": null
-                                }
-                            ],
-                            "type": {
+                            "lbrace": 38,
+                            "list": [],
+                            "rbrace": 41
+                        },
+                        "else": {
+                            "children": [],
+                            "id": "50b3bbb3-e469-11ee-bea0-e4aaeaf8aebf",
+                            "start": 48,
+                            "end": 61,
+                            "code": "if false {\n}",
+                            "nodeType": "IfStatement",
+                            "column": 0,
+                            "line": 0,
+                            "if": 48,
+                            "initialization": null,
+                            "condition": {
                                 "children": [],
-                                "id": "c6099d41-e40b-11ee-9117-e4aaeaf8aebf",
-                                "start": 76,
-                                "end": 79,
-                                "code": "int",
+                                "id": "50b3bcdf-e469-11ee-bea0-e4aaeaf8aebf",
+                                "start": 51,
+                                "end": 56,
+                                "code": "false",
                                 "nodeType": "Identifier",
                                 "column": 0,
                                 "line": 0,
-                                "namePos": 76,
-                                "name": "int",
+                                "namePos": 51,
+                                "name": "false",
                                 "object": null
                             },
-                            "tag": null,
-                            "comment": null
-                        }
-                    ],
-                    "closing": 79
-                },
-                "Results": {
-                    "children": [],
-                    "id": "c6099da5-e40b-11ee-9117-e4aaeaf8aebf",
-                    "start": 81,
-                    "end": 84,
-                    "code": "",
-                    "nodeType": "FieldList",
-                    "column": 0,
-                    "line": 0,
-                    "opening": 0,
-                    "list": [
-                        {
-                            "children": [],
-                            "id": "c6099df6-e40b-11ee-9117-e4aaeaf8aebf",
-                            "start": 81,
-                            "end": 84,
-                            "code": "",
-                            "nodeType": "Field",
-                            "column": 0,
-                            "line": 0,
-                            "doc": null,
-                            "names": null,
-                            "type": {
+                            "body": {
                                 "children": [],
-                                "id": "c6099e5a-e40b-11ee-9117-e4aaeaf8aebf",
-                                "start": 81,
-                                "end": 84,
-                                "code": "int",
-                                "nodeType": "Identifier",
+                                "id": "50b3bd8c-e469-11ee-bea0-e4aaeaf8aebf",
+                                "start": 57,
+                                "end": 61,
+                                "code": "{\n}",
+                                "nodeType": "BlockStatement",
                                 "column": 0,
                                 "line": 0,
-                                "namePos": 81,
-                                "name": "int",
-                                "object": null
+                                "lbrace": 57,
+                                "list": [],
+                                "rbrace": 60
                             },
-                            "tag": null,
-                            "comment": null
+                            "else": null
                         }
-                    ],
-                    "closing": 0
-                }
-            },
-            "body": {
-                "children": [],
-                "id": "c6099ef8-e40b-11ee-9117-e4aaeaf8aebf",
-                "start": 85,
-                "end": 102,
-                "code": "{\n\treturn a + b\n}",
-                "nodeType": "BlockStatement",
-                "column": 0,
-                "line": 0,
-                "lbrace": 85,
-                "list": [
-                    {
-                        "children": [],
-                        "id": "c6099f73-e40b-11ee-9117-e4aaeaf8aebf",
-                        "start": 88,
-                        "end": 100,
-                        "code": "return a + b",
-                        "nodeType": "ReturnStatement",
-                        "column": 0,
-                        "line": 0,
-                        "return": 88,
-                        "results": [
-                            {
-                                "children": [],
-                                "id": "c609a01b-e40b-11ee-9117-e4aaeaf8aebf",
-                                "start": 95,
-                                "end": 100,
-                                "code": "a + b",
-                                "nodeType": "BinaryExpression",
-                                "column": 0,
-                                "line": 0,
-                                "leftExpression": {
-                                    "children": [],
-                                    "id": "c609a088-e40b-11ee-9117-e4aaeaf8aebf",
-                                    "start": 95,
-                                    "end": 96,
-                                    "code": "a",
-                                    "nodeType": "Identifier",
-                                    "column": 0,
-                                    "line": 0,
-                                    "namePos": 95,
-                                    "name": "a",
-                                    "object": null
-                                },
-                                "opPos": 97,
-                                "op": 12,
-                                "rightExpression": {
-                                    "children": [],
-                                    "id": "c609a122-e40b-11ee-9117-e4aaeaf8aebf",
-                                    "start": 99,
-                                    "end": 100,
-                                    "code": "b",
-                                    "nodeType": "Identifier",
-                                    "column": 0,
-                                    "line": 0,
-                                    "namePos": 99,
-                                    "name": "b",
-                                    "object": null
-                                }
-                            }
-                        ]
                     }
                 ],
-                "rbrace": 101
+                "rbrace": 62
             }
         }
     ],
     "fileStart": 1,
-    "fileEnd": 103,
+    "fileEnd": 64,
     "scope": {
         "outer": null,
         "objects": null
